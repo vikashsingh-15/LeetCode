@@ -15,11 +15,11 @@ class Solution {
         if (left > right) {
             return null;
         }
-        int temp = post_index;
-        int curr_val = postorder[post_index];
-        TreeNode root = new TreeNode(curr_val);
+
+        TreeNode root = new TreeNode(postorder[post_index]);
         post_index--;
-        int pos = map.get(curr_val);
+        
+        int pos = map.get(root.val);
         root.right = recursion(inorder, postorder, pos + 1, right, map);
         root.left = recursion(inorder, postorder, left, pos - 1, map);
         return root;
