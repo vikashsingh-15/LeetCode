@@ -5,7 +5,7 @@ class Solution {
 
         int[] arr=new int[n];
         for(int i=2;i*i<arr.length;i++){
-           for(int j=i+i;j<arr.length;j=j+i){
+           for(int j=i+i;j<arr.length;j=j+i){ // i ke sare factors to mark kar raha hai ie=2+2=4 ;4+2=6;6+2=8...
                arr[j]=1;
            }
         }
