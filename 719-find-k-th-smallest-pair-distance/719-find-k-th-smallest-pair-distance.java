@@ -18,7 +18,6 @@ class Solution {
                     end=mid;
                 }
         } 
-        //This value in start will be the difference with atmost k-pairs having this difference
         return start;
   
         //WAY 2
@@ -67,8 +66,7 @@ class Solution {
         for(int j = 1; j<nums.length; j++){
             while(nums[j] - nums[i] > mid){
                  i++;
-            }
-               
+            } 
             count += j-i;
         }
         return count;
