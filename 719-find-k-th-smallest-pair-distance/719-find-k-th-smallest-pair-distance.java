@@ -5,16 +5,17 @@ class Solution {
         // WAY 1
         Arrays.sort(nums);
         int length = nums.length;
-        //This can be the maximum difference in our given array
         int maxDiff = nums[length - 1] - nums[0]; 
         int start = 0;
         int end = maxDiff;
         while(start < end){
             int mid = start + (end - start)/2;
-            if(isPair(nums,mid,k))
-                end = mid;
-            else
-                start = mid+1;
+            int ans=isPair(nums,mid,k);  //checking how many pair hai absolute diff less than mid value
+                if(ans<k){
+                    start=mid+1;
+                }else{
+                    end=mid;
+                }
         } 
         //This value in start will be the difference with atmost k-pairs having this difference
         return start;
@@ -23,7 +24,7 @@ class Solution {
 //         Arrays.sort(nums);
 
 //             int lo = 0;
-//             int hi = nums[nums.length - 1] - nums[0];
+//             int hi = nums[nums.length - 1] - nums[0];//max diff
 //             while (lo < hi) {
 //                 int mi = (lo + hi) / 2;
 //                 int count = 0, left = 0;
@@ -59,7 +60,7 @@ class Solution {
 
     }
     
-    public boolean isPair(int[] nums, int mid, int k){     
+    public int isPair(int[] nums, int mid, int k){     
         int count = 0;
         int i = 0;
         for(int j = 1; j<nums.length; j++){
@@ -67,6 +68,6 @@ class Solution {
                 i++;
             count += j-i;
         }
-        return (count >= k);
+        return count;
     }
 }
