@@ -9,8 +9,9 @@ class Solution {
         int start = 0;
         int end = maxDiff;
         while(start < end){
-            int mid = start + (end - start)/2;
-            int ans=isPair(nums,mid,k);  //checking how many pair hai absolute diff less than mid value
+            int mid = start + (end - start)/2;//hum log mid nikal kar dekhenghe kki wo mid hum .og aka ans ho shakta hai ya nahi
+                                                     //i.e uss mid ke liye kya humey less than eqiual to k kaam difference ka pair                                                              //mil raha hai ya nahi.
+            int ans=isPair(nums,mid,k); 
                 if(ans<k){
                     start=mid+1;
                 }else{
@@ -60,7 +61,7 @@ class Solution {
 
     }
     
-    public int isPair(int[] nums, int mid, int k){     
+    public int isPair(int[] nums, int mid, int k){     //finding out how ,any code have absolute diff less than mid
         int count = 0;
         int i = 0;
         for(int j = 1; j<nums.length; j++){
