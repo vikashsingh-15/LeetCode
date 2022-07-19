@@ -1,11 +1,17 @@
 class Solution {
 
     public List<List<Integer>> generate(int numRows) {
+       
+        
         List<List<Integer>> list = new LinkedList<>();
-        List<Integer> pre = null;
+         // LinkedList<List<Integer>> list = new LinkedList<>(); // this will also work
+        // List<List<Integer>> list = new LinkedList<>(); // LinkedList se bhi kaam ho jata
+        List<Integer> pre = null; 
+        //List<Integer> pre = new LinkedList<>();
         for (int i = 0; i < numRows; i++) {
-            List<Integer> current = new ArrayList<>();
-
+            List<Integer> current = new LinkedList<>();
+            // LinkedList<Integer> current = new LinkedList<>(); //-- will work
+             // List<Integer> current = new LinkedList<>(); //-- will work
             for (int j = 0; j <= i; j++) {
                 if (j == 0 || j == i) {
                     current.add(1);
