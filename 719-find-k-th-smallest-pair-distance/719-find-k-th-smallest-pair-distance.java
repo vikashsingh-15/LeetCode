@@ -65,8 +65,10 @@ class Solution {
         int count = 0;
         int i = 0;
         for(int j = 1; j<nums.length; j++){
-            while(nums[j] - nums[i] > mid)
-                i++;
+            while(nums[j] - nums[i] > mid){
+                 i++;
+            }
+               
             count += j-i;
         }
         return count;
