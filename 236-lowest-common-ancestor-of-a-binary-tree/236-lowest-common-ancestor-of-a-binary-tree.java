@@ -33,11 +33,23 @@ class Solution {
         TreeNode left = lowestCommonAncestor(root.left, p, q);
 
         TreeNode right = lowestCommonAncestor(root.right, p, q);
-        if (left == null) return right;
 
-        if (right == null) return left;
+        if (right == null) {
+            return left;
+        }
+
+        if (left == null) {
+            return right;
+        }
 
         return root;
+        //         if(left!=null && right!=null)
+        //             return root;
+        //         if(left!=null)
+        //             return left;
+        //         if(right!=null)
+        //             return right;
+        //         return null;
     }
 }
 // 	public ArrayList<TreeNode> nodeToRootPath(TreeNode node, int data)
