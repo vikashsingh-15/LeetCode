@@ -1,20 +1,27 @@
 class MyCalendar {
     List<int[]> booking;
+
     public MyCalendar() {
         booking = new ArrayList();
     }
-    
+
     public boolean book(int start, int end) {
-        for (int[] temp: booking) {
+        // for (int[] temp: booking) {
+        //     if (temp[0] < end && start < temp[1]) {
+        //         return false;
+        //     }
+        // }
+
+        for (int i = 0; i < booking.size(); i++) {
+            int temp[] = booking.get(i);
             if (temp[0] < end && start < temp[1]) {
                 return false;
-            }
+            }    
         }
-        booking.add(new int[]{start, end});
-        return true;
+         booking.add(new int[] { start, end });
+         return true;
     }
 }
-
 /**
  * Your MyCalendar object will be instantiated and called as such:
  * MyCalendar obj = new MyCalendar();
