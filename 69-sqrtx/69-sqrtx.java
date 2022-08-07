@@ -4,7 +4,7 @@ class Solution {
         long end=x;
         while(start<=end){
             long mid=start+(end-start)/2;
-            System.out.println(mid);
+            // System.out.println(mid);
             if(mid*mid==x){
                 return (int)mid;
             }
