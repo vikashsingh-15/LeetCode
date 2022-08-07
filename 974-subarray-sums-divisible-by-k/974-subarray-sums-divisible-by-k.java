@@ -1,5 +1,6 @@
 class Solution {
-
+//look at 
+    //https://practice.geeksforgeeks.org/problems/longest-subarray-with-sum-divisible-by-k1259/1
     public int subarraysDivByK(int[] arr, int k) {
         int ans = 0;
         HashMap<Integer, Integer> map = new HashMap<>();
@@ -10,7 +11,7 @@ class Solution {
             if (rem < 0) {
                 rem = rem + k;
             }
-            if(rem==0){
+            if (rem == 0) {
                 ans++;
             }
 
