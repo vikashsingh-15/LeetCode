@@ -19,6 +19,8 @@ class Solution {
 
         //         return (int) start-1;
         
+        
+        //WAy 2
         long val=0;
         while(val*val<=x) val++;
         return (int) val-1;
