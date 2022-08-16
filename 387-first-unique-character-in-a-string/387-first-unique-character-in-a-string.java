@@ -21,15 +21,31 @@ class Solution {
         
         
 
-        int ans = Integer.MAX_VALUE;
-        for(char c='a'; c<='z';c++){
-            int index = s.indexOf(c);//default value of s.indexOf(c);=-1
-            // System.out.println(index);
-            if(index!=-1&&index==s.lastIndexOf(c)){
-                ans = Math.min(ans,index);
-            }
+        
+        for(int i=0;i<s.length();i++){
+            char c=s.charAt(i);
+            int firstIndex=s.indexOf(c);
+            int lastIndex=s.lastIndexOf(c);
+            if(lastIndex==firstIndex){
+                return i;
+            } 
         }
-        return ans==Integer.MAX_VALUE?-1:ans;
+        return -1;
+        
+        
+        
+        
+        
+//         int ans = Integer.MAX_VALUE;
+        
+//         for(char c='a'; c<='z';c++){
+//             int index = s.indexOf(c);//default value of s.indexOf(c);=-1
+//             // System.out.println(index);
+//             if(index!=-1&&index==s.lastIndexOf(c)){
+//                 ans = Math.min(ans,index);
+//             }
+//         }
+//         return ans==Integer.MAX_VALUE?-1:ans;
         
     }
 }
