@@ -9,25 +9,57 @@
  * }
  */
 class Solution {
+
     public boolean isPalindrome(ListNode head) {
-        ListNode dummy=head;        
-        if(head==null || head.next==null){
+        if (head == null || head.next == null) {
             return true;
         }
-        
-        StringBuilder sb=new StringBuilder();
-        //  for(ListNode ptr=head;ptr!=null;ptr=ptr.next)
-        // {
-        //     nm.append(ptr.val);
-        // }
-        
-        while(dummy!=null){
-            sb.append(dummy.val);
-            dummy=dummy.next;
-            
+
+        //         ListNode dummy=head;
+        //         StringBuilder sb=new StringBuilder();
+        //         //  for(ListNode ptr=head;ptr!=null;ptr=ptr.next)
+        //         // {
+        //         //     nm.append(ptr.val);
+        //         // }
+
+        //         while(dummy!=null){
+        //             sb.append(dummy.val);
+        //             dummy=dummy.next;
+
+        //         }
+
+        //          return sb.toString().equals(sb.reverse().toString());
+
+        //Way 2
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast != null && fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        //reverse the slow linked list
+
+        ListNode curr = slow.next;
+        ListNode prev = null;
+        while (curr != null) {
+            ListNode temp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = temp;
         }
         
-         return sb.toString().equals(sb.reverse().toString());
+        fast = prev; // head of second part
+        slow = head; // head of first part
+        while(slow != null && fast != null){
+            if (slow.val != fast.val){
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        return true;
         
     }
 }
