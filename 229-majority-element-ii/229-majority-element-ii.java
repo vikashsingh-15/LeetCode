@@ -53,30 +53,43 @@ class Solution {
 
     // way 2
 
-        int n = arr.length / 3;
-        Arrays.sort(arr); 
-        int count = 1;
-        ArrayList<Integer> list = new ArrayList(); 
-        for (int i = 0; i < arr.length; i++) {
-            if (i < arr.length - 1 && arr[i] == arr[i + 1]) { 
-                count = count + 1;
-            }
-            if (i < arr.length - 1 && arr[i] != arr[i + 1]) { 
-                count = 1;
-            }
-            if (count > n) { 
-                list.add(arr[i]);
-                count = 1;
-            }
-        }
-        Set<Integer> set = new LinkedHashSet<>(); 
+//         int n = arr.length / 3;
+//         Arrays.sort(arr); 
+//         int count = 1;
+//         ArrayList<Integer> list = new ArrayList(); 
+//         for (int i = 0; i < arr.length; i++) {
+//             if (i < arr.length - 1 && arr[i] == arr[i + 1]) { 
+//                 count = count + 1;
+//             }
+//             if (i < arr.length - 1 && arr[i] != arr[i + 1]) { 
+//                 count = 1;
+//             }
+//             if (count > n) { 
+//                 list.add(arr[i]);
+//                 count = 1;
+//             }
+//         }
+//         Set<Integer> set = new LinkedHashSet<>(); 
 
-        set.addAll(list); 
-        list.clear(); 
-        list.addAll(set); 
-        return list;
+//         set.addAll(list); 
+//         list.clear(); 
+//         list.addAll(set); 
+//         return list;
         
     //way 3
+        
+        List<Integer> ans = new ArrayList<Integer>();
+      Arrays.sort(arr);
+        for (int i = 0; i < arr.length; i++)
+        {
+            int count = 1;
+              while (i < arr.length-1 && arr[i] == arr[i + 1]) {
+                i++;
+                count++;
+            }
+          if(count>arr.length/3) ans.add(arr[i]);
+        }
+      return ans;
         
         
         
