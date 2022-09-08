@@ -78,18 +78,33 @@ class Solution {
         
     //way 3
         
-        List<Integer> ans = new ArrayList<Integer>();
-      Arrays.sort(arr);
-        for (int i = 0; i < arr.length; i++)
-        {
-            int count = 1;
-              while (i < arr.length-1 && arr[i] == arr[i + 1]) {
-                i++;
-                count++;
-            }
-          if(count>arr.length/3) ans.add(arr[i]);
+      //   List<Integer> ans = new ArrayList<Integer>();
+      // Arrays.sort(arr);
+      //   for (int i = 0; i < arr.length; i++)
+      //   {
+      //       int count = 1;
+      //         while (i < arr.length-1 && arr[i] == arr[i + 1]) {
+      //           i++;
+      //           count++;
+      //       }
+      //     if(count>arr.length/3) ans.add(arr[i]);
+      //   }
+      // return ans;
+        
+        
+        //way 4
+        List<Integer> al = new ArrayList<>();
+        int n = arr.length;
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i : arr){
+            map.put(i,map.getOrDefault(i,0)+1);
         }
-      return ans;
+        // System.out.println(map);
+        for(int i : map.keySet()){
+            if(map.get(i)>n/3)
+                al.add(i);
+        }
+        return al;
         
         
         
