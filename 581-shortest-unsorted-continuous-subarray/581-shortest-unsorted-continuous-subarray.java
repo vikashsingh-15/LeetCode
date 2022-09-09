@@ -3,7 +3,7 @@ class Solution {
     public int findUnsortedSubarray(int[] arr) {
         // int ans[]=new int[2];
 
-        int apoint = 0;
+        int apoint = -1;
         int bpoint = -1;
         int max = arr[0];
         int min = arr[arr.length - 1];
@@ -24,6 +24,10 @@ class Solution {
             }
         }
 
-        return bpoint - apoint + 1;
+         if(apoint==bpoint){
+            return 0;
+        }else{
+           return bpoint-apoint+1;
+        }
     }
 }
