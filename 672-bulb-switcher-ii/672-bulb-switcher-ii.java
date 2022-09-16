@@ -20,7 +20,7 @@ When p = 3:
         n = 3, the light has 8 states: 111, 101.010, 100, 000, 001, 110, 011, so the answer is 8;
         Ditto, when n > 3, the answer is both 8.
 
-When p > 3, the answer should be the same as m = 3.
+When p > 3, the answer should be the same as p = 3.
 */
 
 
