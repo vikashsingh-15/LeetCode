@@ -14,23 +14,14 @@ class Solution {
         // nextNode.next = null;
         
         
-        // //way 2
-        //  node.val=node.next.val;
-        // node.next=node.next.next;
+         //way 2
+         node.val=node.next.val;
+        node.next=node.next.next;
         
         
         //way 3
         
-        if(node == null){
-            return;
-        }
-        if(node.next == null){
-            node.val =0;
-            node.next = null;
-        }else{
-            node.val = node.next.val;
-            node.next = node.next.next;
-        }
+        
         
     }
 }
