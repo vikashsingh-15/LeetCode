@@ -16,15 +16,15 @@ class Solution {
         } else {
             // 1 at first
             int i = 0;
-            int cost = 0;
+            int cost1 = 0;
             while (i < str.length()) {
                 if (i % 2 == 0) {
                     if (str.charAt(i) != '1') {
-                        cost++;
+                        cost1++;
                     }
                 } else {
                     if (str.charAt(i) != '0') {
-                        cost++;
+                        cost1++;
                     }
                 }
                 i++;
@@ -32,37 +32,37 @@ class Solution {
 
             // 0 at first
             int j = 0;
-            int cost1 = 0;
+            int cost0 = 0;
             while (j < str.length()) {
                 if (j % 2 == 0) {
                     if (str.charAt(j) != '0') {
-                        cost1++;
+                        cost0++;
                     }
                 } else {
                     if (str.charAt(j) != '1') {
-                        cost1++;
+                        cost0++;
                     }
                 }
                 j++;
             }
 
-            if (cost % 2 == 0 && cost1 % 2 == 0) {
-                if (cost / 2 < cost1 / 2) {
-                    return cost / 2;
-                    // System.out.println(cost / 2);
+            if (cost0 % 2 == 0 && cost1 % 2 == 0) {
+                if (cost0 / 2 < cost1 / 2) {
+                    return cost0 / 2;
+                  
                 } else {
                     return cost1 / 2;
-                    // System.out.println(cost1 / 2);
+               
                 }
             }
 
             else {
-                if (cost % 2 == 0)
-                    return cost / 2;
-                    // System.out.println(cost / 2);
+                if (cost0 % 2 == 0)
+                    return cost0 / 2;
+                   
                 else
                     return cost1 / 2;
-                    // System.out.println(cost1 / 2);
+                  
             }  
     }
     }
