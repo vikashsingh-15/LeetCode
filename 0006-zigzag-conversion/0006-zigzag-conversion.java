@@ -7,8 +7,7 @@ class Solution {
         char[][] arr = new char[numRows][s.length()];
         int t = 0;
         String ans="";
-
-        for (int i = 0; i < s.length() && t<s.length(); i++) {
+        for (int i = 0; i < s.length(); i++) {
             if (i % 2 == 0 ) {
                 for (int j = 0; j < numRows && t<s.length(); j++) {
                     arr[j][i] = s.charAt(t);
