@@ -9,7 +9,7 @@ class Solution {
             b = -b;
         }
         while(b > 0) {
-            if((b & 1) == 1) res *= x;
+            if(b % 2 == 1) res *= x;
             x *= x;
             b >>= 1;
         }
