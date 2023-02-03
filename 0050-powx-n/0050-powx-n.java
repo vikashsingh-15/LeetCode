@@ -11,7 +11,7 @@ class Solution {
         while(b > 0) {
             if(b % 2 == 1) res *= x;
             x *= x;
-            b >>= 1;
+             b /= 2;
         }
         return res;
     }
