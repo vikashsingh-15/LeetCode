@@ -1,7 +1,4 @@
-import java.lang.Math;
-
 class Solution {
-
     public String gcdOfStrings(String str1, String str2) {
         // if (str1 == "") {
         //     return str2;
@@ -18,8 +15,7 @@ class Solution {
         //     sb1.delete(str2.length() - str1.length(), str2.length());
         //     return gcdOfStrings(str1, sb1.toString());
         // }
-
-        //Way 2
+//Way 2
         // if (str1.length() < str2.length()) {
         //     return gcdOfStrings(str2, str1);
         // }
@@ -29,10 +25,9 @@ class Solution {
         // if (str2.isEmpty()) {
         //     return str1;
         // }
-        // return gcdOfStrings(str1.substring(str2.length()), str2);
-        //Way 3
+        // return gcdOfStrings(str1.substring(str2.length()), str2);       
+//Way 3
         if (!(str1 + str2).equals(str2 + str1)) return "";
-
         return str1.substring(0, findGCD(str1.length(), str2.length()));
     }
 
