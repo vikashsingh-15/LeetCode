@@ -7,11 +7,11 @@ class Solution {
         }
         for (int i = 0; i < redEdges.length; i++) {
             int[] re = redEdges[i];
-            graph[0][ re[0] ].add(re[1]);
+            graph[0][re[0]].add(re[1]);
         }
         for (int i = 0; i < blueEdges.length; i++) {
             int[] blu = blueEdges[i];
-            graph[1][ blu[0] ].add(blu[1]);
+            graph[1][blu[0]].add(blu[1]);
         }
         int[][] res = new int[2][n];
         for (int i = 1; i < n; i++) {
@@ -19,8 +19,8 @@ class Solution {
             res[1][i] = 2 * n;
         }
         Queue<int[]> q = new LinkedList<>();
-        q.offer(new int[] {0, 0});
-        q.offer(new int[] {0, 1});
+        q.offer(new int[] { 0, 0 });
+        q.offer(new int[] { 0, 1 });
         while (!q.isEmpty()) {
             int[] cur = q.poll();
             int vert = cur[0];
@@ -30,7 +30,7 @@ class Solution {
                 int nxt = (Integer) nextNodes.toArray()[j];
                 if (res[1 - colr][nxt] == 2 * n) {
                     res[1 - colr][nxt] = 1 + res[colr][vert];
-                    q.offer(new int[] {nxt, 1 - colr});
+                    q.offer(new int[] { nxt, 1 - colr });
                 }
             }
         }
@@ -40,12 +40,8 @@ class Solution {
             ans[i] = (t == 2 * n) ? -1 : t;
         }
         return ans;
-        
     }
 }
-
-
-
 //class Solution {
 //     public int[] shortestAlternatingPaths(int n, int[][] red_edges, int[][] blue_edges) {
 //         Set<Integer>[][] graph = new HashSet[2][n];
@@ -84,6 +80,5 @@ class Solution {
 //             ans[i] = (t == 2 * n) ? -1 : t;
 //         }
 //         return ans;
-        
 //     }
 // }
