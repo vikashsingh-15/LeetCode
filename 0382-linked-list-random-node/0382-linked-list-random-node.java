@@ -19,7 +19,7 @@ ArrayList<Integer> arr = new ArrayList<>();
     
     public int getRandom() {
           int num = (int) (Math.random() * arr.size()); 
-        return this.arr.get(num);
+        return arr.get(num);
     }
 }
 
