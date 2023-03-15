@@ -14,17 +14,42 @@
  * }
  */
 class Solution {
+
     public boolean isCompleteTree(TreeNode root) {
         if (root == null) {
             return true;
         }
+
+//         Queue<TreeNode> queue = new LinkedList<>();
+//         queue.add(root);
+//         boolean end = false;
+
+//         while (!queue.isEmpty()) {
+//             TreeNode node = queue.poll();
+
+//             if (node == null) {
+//                 end = true;
+//             } else {
+//                 if (end) {
+//                     return false;
+//                 }
+//                 queue.offer(node.left);
+//                 queue.offer(node.right);
+//             }
+//         }
+//         return true;
         
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+
+          Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
         boolean end = false;
-        
+
         while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+            int size=queue.size();
+            
+            for(int i=0;i<size;i++){
+                TreeNode node = queue.poll();
+
             if (node == null) {
                 end = true;
             } else {
@@ -34,8 +59,14 @@ class Solution {
                 queue.offer(node.left);
                 queue.offer(node.right);
             }
+            
+            }
         }
-        
+
         return true;
+        
+        
+        
+        
     }
 }
