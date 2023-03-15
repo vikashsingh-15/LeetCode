@@ -20,53 +20,49 @@ class Solution {
             return true;
         }
 
-//         Queue<TreeNode> queue = new LinkedList<>();
-//         queue.add(root);
-//         boolean end = false;
+        //         Queue<TreeNode> queue = new LinkedList<>();
+        //         queue.add(root);
+        //         boolean end = false;
 
-//         while (!queue.isEmpty()) {
-//             TreeNode node = queue.poll();
+        //         while (!queue.isEmpty()) {
+        //             TreeNode node = queue.poll();
 
-//             if (node == null) {
-//                 end = true;
-//             } else {
-//                 if (end) {
-//                     return false;
-//                 }
-//                 queue.offer(node.left);
-//                 queue.offer(node.right);
-//             }
-//         }
-//         return true;
+        //             if (node == null) {
+        //                 end = true;
+        //             } else {
+        //                 if (end) {
+        //                     return false;
+        //                 }
+        //                 queue.offer(node.left);
+        //                 queue.offer(node.right);
+        //             }
+        //         }
+        //         return true;
         
+        ////way 2
 
-          Queue<TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         boolean end = false;
 
         while (!queue.isEmpty()) {
-            int size=queue.size();
-            
-            for(int i=0;i<size;i++){
+            int size = queue.size();
+
+            for (int i = 0; i < size; i++) {
                 TreeNode node = queue.poll();
 
-            if (node == null) {
-                end = true;
-            } else {
-                if (end) {
-                    return false;
+                if (node == null) {
+                    end = true;
+                } else {
+                    if (end) {
+                        return false;
+                    }
+                    queue.offer(node.left);
+                    queue.offer(node.right);
                 }
-                queue.offer(node.left);
-                queue.offer(node.right);
-            }
-            
             }
         }
 
         return true;
-        
-        
-        
-        
     }
 }
