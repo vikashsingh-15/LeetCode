@@ -1,41 +1,35 @@
 class BrowserHistory {
 
    private String currentUrl;
-    private LinkedList<String> history;
+    private LinkedList<String> history=new LinkedList<>();
     private int currentIndex;
 
      public BrowserHistory(String homepage) {
-        this.currentUrl = homepage;
-        this.history = new LinkedList<>();
-        this.history.add(homepage);
-        this.currentIndex = 0;
+        currentUrl = homepage;   
+        history.add(homepage);
+        currentIndex = 0;
     }
 
     public void visit(String url) {
-        this.currentIndex++;
-        if (currentIndex == history.size()) {
-            history.add(url);
-        } else {
-            history.set(currentIndex, url);
-            int size = history.size();
-            for (int i = currentIndex + 1; i < size; i++) {
-                history.removeLast();
-            }
+        currentIndex++;
+       history.add(currentIndex,url);
+         while(currentIndex < history.size()-1){
+            history.removeLast();
         }
-        this.currentUrl = url;
+        
     }
 
     public String back(int steps) {
-        this.currentIndex = Math.max(currentIndex - steps, 0);
-        this.currentUrl = history.get(currentIndex);
-        return this.currentUrl;
+        currentIndex = Math.max(currentIndex - steps, 0);
+        currentUrl = history.get(currentIndex);
+        return currentUrl;
     }
 
     public String forward(int steps) {
         int stepsToForward = Math.min(steps, history.size() - 1 - currentIndex);
-        this.currentIndex += stepsToForward;
-        this.currentUrl = history.get(currentIndex);
-        return this.currentUrl;
+        currentIndex += stepsToForward;
+        currentUrl = history.get(currentIndex);
+        return currentUrl;
     }
 }
 /**
