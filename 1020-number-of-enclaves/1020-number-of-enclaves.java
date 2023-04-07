@@ -10,19 +10,19 @@ class Solution {
         int no_of_islands = 0;
         for (int i = 0; i < col; i++) {
             mark_current_island(grid, 0, i);
-            // mark_current_island(grid[0][i],0,i);
+     
 
         }
         for (int i = 1; i < rows; i++) {
             mark_current_island(grid, i, col - 1);
-            // mark_current_island(grid[i][col-1],i,col-1);
+         
         }
         for (int i = col - 2; i >= 0; i--) {
-            // mark_current_island(grid[col-1][i],col-1,i);
+
             mark_current_island(grid, rows - 1, i);
         }
         for (int i = rows - 2; i >= 1; i--) {
-            // mark_current_island(grid[i][0],i,0);
+      
             mark_current_island(grid, i, 0);
         }
 
