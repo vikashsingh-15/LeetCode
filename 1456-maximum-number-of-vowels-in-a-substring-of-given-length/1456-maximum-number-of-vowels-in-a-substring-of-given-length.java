@@ -11,20 +11,20 @@ class Solution {
         //     maxVowel = Math.max(maxVowel, vowelPerWindow);
         // }
         // return maxVowel;
-        
-         int max_vow = 0, cur_vow=0;
-        for(int i=0;i<s.length();i++){
+
+        int max_vow = 0, cur_vow = 0;
+        for (int i = 0; i < s.length(); i++) {
             cur_vow += isVowel(s.charAt(i));
-            if(i>=k)
-                cur_vow -= isVowel(s.charAt(i-k));
+            if (i >= k) {
+                cur_vow -= isVowel(s.charAt(i - k));
+            }
             max_vow = Math.max(max_vow, cur_vow);
         }
-        return max_vow;    
+        return max_vow;
     }
-    
-    public int isVowel(char c){
-        if(c=='a' || c=='e' || c=='i' || c=='o' || c=='u')
-            return 1;
+
+    public int isVowel(char c) {
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') return 1;
         return 0;
     }
 }
