@@ -12,19 +12,25 @@ class Solution {
         // }
         // return maxVowel;
 
-        int max_vow = 0, cur_vow = 0;
-        for (int i = 0; i < s.length(); i++) {
-            cur_vow += isVowel(s.charAt(i));
-            if (i >= k) {
-                cur_vow -= isVowel(s.charAt(i - k));
+
+        int max_vow = 0,setCount = 0;        
+        for(int i=0;i<s.length();i++){
+            if (isVowel(s.charAt(i))) {
+                setCount++;
             }
-            max_vow = Math.max(max_vow, cur_vow);
+            if (i >= k) {
+                if (isVowel(s.charAt(i - k))) {
+                    setCount--;
+                }
+            }
+             max_vow = Math.max(max_vow, setCount);
+        
         }
         return max_vow;
     }
 
-    public int isVowel(char c) {
-        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') return 1;
-        return 0;
+    public boolean isVowel(char c) {
+        if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') return true;
+        return false;
     }
 }
