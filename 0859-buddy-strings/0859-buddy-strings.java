@@ -12,18 +12,32 @@ class Solution {
             return false;
         }
         
-        int index1 = -1;
-        int index2 = -1;
-        for(int i = 0;i<s.length();i++){
-            if(s.charAt(i) != goal.charAt(i)){
-                if(index1 == -1) index1 = i;
-                else if(index2 == -1) index2 = i;
-                else return false;
+//         int index1 = -1;
+//         int index2 = -1;
+//         for(int i = 0;i<s.length();i++){
+//             if(s.charAt(i) != goal.charAt(i)){
+//                 if(index1 == -1) index1 = i;
+//                 else if(index2 == -1) index2 = i;
+//                 else return false;
+//             }
+//         }
+//           if(index1==-1) return false;
+//         if(index2==-1) return false;
+      
+//         return (s.charAt(index1) == goal.charAt(index2) && s.charAt(index2) == goal.charAt(index1));
+        
+        
+        List<Integer> diffS = new ArrayList<>();
+        List<Integer> diffGoal = new ArrayList<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                diffS.add(i);
+                diffGoal.add(i);
             }
         }
-          if(index1==-1) return false;
-        if(index2==-1) return false;
-      
-        return (s.charAt(index1) == goal.charAt(index2) && s.charAt(index2) == goal.charAt(index1));
+
+        return diffS.size() == 2 && s.charAt(diffS.get(0)) == goal.charAt(diffGoal.get(1)) &&
+               s.charAt(diffS.get(1)) == goal.charAt(diffGoal.get(0));
     }
 }
