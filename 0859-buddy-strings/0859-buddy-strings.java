@@ -21,7 +21,9 @@ class Solution {
                 else return false;
             }
         }
+          if(index1==-1) return false;
         if(index2==-1) return false;
+      
         return (s.charAt(index1) == goal.charAt(index2) && s.charAt(index2) == goal.charAt(index1));
     }
 }
