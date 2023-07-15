@@ -20,49 +20,48 @@ class Solution {
             return true;
         }
 
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode node = queue.poll();
+
+            if (node == null) {
+                while(!queue.isEmpty()){
+                    if(queue.poll()!=null){
+                        return false;
+                    }
+                }
+            } else {
+                queue.offer(node.left);
+                queue.offer(node.right);
+            }
+        }
+        return true;
+        ////way 2
+
         //         Queue<TreeNode> queue = new LinkedList<>();
         //         queue.add(root);
         //         boolean end = false;
 
         //         while (!queue.isEmpty()) {
-        //             TreeNode node = queue.poll();
+        //             int size = queue.size();
 
-        //             if (node == null) {
-        //                 end = true;
-        //             } else {
-        //                 if (end) {
-        //                     return false;
+        //             for (int i = 0; i < size; i++) {
+        //                 TreeNode node = queue.poll();
+
+        //                 if (node == null) {
+        //                     end = true;
+        //                 } else {
+        //                     if (end) {
+        //                         return false;
+        //                     }
+        //                     queue.offer(node.left);
+        //                     queue.offer(node.right);
         //                 }
-        //                 queue.offer(node.left);
-        //                 queue.offer(node.right);
         //             }
         //         }
+
         //         return true;
-        
-        ////way 2
-
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
-        boolean end = false;
-
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-
-            for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll();
-
-                if (node == null) {
-                    end = true;
-                } else {
-                    if (end) {
-                        return false;
-                    }
-                    queue.offer(node.left);
-                    queue.offer(node.right);
-                }
-            }
-        }
-
-        return true;
     }
 }
