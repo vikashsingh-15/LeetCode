@@ -9,22 +9,30 @@
  * }
  */
 class Solution {
-     public ListNode swapPairs(ListNode head) {
-          ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode prev = dummy;
 
-        while (prev.next != null && prev.next.next != null) {
-            ListNode curr = prev.next;
-            ListNode next = curr.next;
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode current = dummy;
+
+        while (current.next != null && current.next.next != null) {
+            ListNode first = current.next;
+            ListNode second = current.next.next;
+            // System.out.print(" before first = " + first.val);
+            // System.out.print(" before second = " + second.val);
+            // System.out.print(" before current = " + current.val);
 
             // Swap the nodes
-            curr.next = next.next;
-            next.next = curr;
-            prev.next = next;
-
-            // Move to the next pair
-            prev = curr;
+            // System.out.print(" point 1 first = " + first.val);
+            first.next = second.next;
+            // System.out.print(" point 2 first = " + first.val);
+            // System.out.print(" point 1 second = " + second.val);
+            second.next = first;
+            // System.out.print(" point 2 second = " + second.val);
+            current.next = second;
+            // System.out.print(" after first = " + first.val);
+            // System.out.print(" after second = " + second.val);
+            current = current.next.next;
         }
 
         return dummy.next;
