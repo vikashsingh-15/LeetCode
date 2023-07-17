@@ -30,17 +30,16 @@ class Solution
     public String FirstNonRepeating(String str)
     {
 
-        
-      int[] count = new int[26]; // assuming only lowercase alphabets
+  Map<Character, Integer> map = new HashMap<>();
         Queue<Character> queue = new LinkedList<>();
         StringBuilder ans = new StringBuilder();
 
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            count[c - 'a']++;
+            map.put(c, map.getOrDefault(c, 0) + 1);
             queue.add(c);
-            
-            while (!queue.isEmpty() && count[queue.peek() - 'a'] > 1) {
+
+            while (!queue.isEmpty() && map.get(queue.peek()) > 1) {
                 queue.poll();
             }
 
@@ -52,5 +51,30 @@ class Solution
         }
 
         return ans.toString();
+        
+        
+        
+        
+    //   int[] count = new int[26]; // assuming only lowercase alphabets
+    //     Queue<Character> queue = new LinkedList<>();
+    //     StringBuilder ans = new StringBuilder();
+
+    //     for (int i = 0; i < str.length(); i++) {
+    //         char c = str.charAt(i);
+    //         count[c - 'a']++;
+    //         queue.add(c);
+            
+    //         while (!queue.isEmpty() && count[queue.peek() - 'a'] > 1) {
+    //             queue.poll();
+    //         }
+
+    //         if (queue.isEmpty()) {
+    //             ans.append('#');
+    //         } else {
+    //             ans.append(queue.peek());
+    //         }
+    //     }
+
+    //     return ans.toString();
     }
 }
