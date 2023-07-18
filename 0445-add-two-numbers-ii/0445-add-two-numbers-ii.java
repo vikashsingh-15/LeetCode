@@ -40,7 +40,7 @@ class Solution {
             new_node.next = dummyHead;
             // System.out.print(" BEfore = "+dummyHead.val);
             dummyHead = new_node;
-            System.out.print("Afater =" +dummyHead.val);
+            // System.out.print("Afater =" +dummyHead.val);
             System.out.println();
         }
 
