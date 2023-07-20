@@ -11,29 +11,86 @@
 class Solution {
 
     public int pairSum(ListNode head) {
-        ListNode slow = head;
-        ListNode fast = head;
-        int maxVal = 0;
+        // ListNode slow = head;
+        // ListNode fast = head;
+        // int maxVal = 0;
+        // while (fast != null && fast.next != null) {
+        //     slow = slow.next;
+        //     fast = fast.next.next;
+        // }
+        // ListNode nextNode, prev = null;
+        // while (slow != null) {
+        //     nextNode = slow.next;
+        //     slow.next = prev;
+        //     prev = slow;
+        //     slow = nextNode;
+        // }
+        // while (prev != null) {
+        //     maxVal = Math.max(maxVal, head.val + prev.val);
+        //     prev = prev.next;
+        //     head = head.next;
+        // }
+        // return maxVal;
+        
+        
+        //way 2
+        
+        Map<Integer, ListNode> nodeMap = new HashMap<>();
+        ListNode current = head;
+        int size = 0;
 
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        while (current != null) {
+            nodeMap.put(size, current);
+            size++;
+            current = current.next;
         }
 
-        ListNode nextNode, prev = null;
-        while (slow != null) {
-            nextNode = slow.next;
-            slow.next = prev;
-            prev = slow;
-            slow = nextNode;
+        int maxSum = Integer.MIN_VALUE;
+        current = head;
+
+        for (int i = 0; i < size / 2; i++) {
+            int twinIndex = size - 1 - i;
+            ListNode twinNode = nodeMap.get(twinIndex);
+            int sum = current.val + twinNode.val;
+            maxSum = Math.max(maxSum, sum);
+            current = current.next;
         }
 
-        while (prev != null) {
-            maxVal = Math.max(maxVal, head.val + prev.val);
-            prev = prev.next;
-            head = head.next;
-        }
+        return maxSum;
 
-        return maxVal;
+        //way 3 => TLE
+
+//         int maxSum = Integer.MIN_VALUE;
+//         ListNode current = head;
+//         int size = 0;
+//         while (current != null) {
+//             size++;
+//             current = current.next;
+//         }
+//         current = head;
+//         int i = 0;
+
+//         while (current != null && i < size / 2) {
+//             int twinIndex = size - 1 - i;
+//             ListNode twinNode = getNodeAtIndex(head, twinIndex);
+//             int sum = current.val + twinNode.val;
+//             maxSum = Math.max(maxSum, sum);
+//             current = current.next;
+//             i++;
+//         }
+
+//         return maxSum;
     }
+
+//     private ListNode getNodeAtIndex(ListNode head, int index) {
+//         ListNode current = head;
+//         int i = 0;
+
+//         while (current != null && i < index) {
+//             current = current.next;
+//             i++;
+//         }
+
+//         return current;
+//     }
 }
