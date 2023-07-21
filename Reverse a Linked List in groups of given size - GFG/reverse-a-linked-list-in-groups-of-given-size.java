@@ -83,12 +83,10 @@ class Solution
     public static Node reverse(Node node, int k)
     {
        int count = 0;
-
         Node dummy = new Node(-1); 
         dummy.next = node;
         Node prev = dummy;
         Node curr = node;
-
         while (curr != null) {
             count++;
             if (count == k) {
@@ -99,8 +97,6 @@ class Solution
                 curr = curr.next; 
             }
         }
-        
-        
         if(count<k && count!=0){
             reverseGroup(prev, curr); 
         }
@@ -110,18 +106,18 @@ class Solution
     
     
      private static Node reverseGroup(Node prev, Node next) {
-          Node last = prev.next;
-        Node curr = last.next;
+      Node last = prev.next;
+    Node curr = last.next;
 
-        while (curr != next) {
-            Node forward = curr.next;
-            curr.next = prev.next;
-            prev.next = curr;
-            last.next = forward;
-            curr = forward;
-        }
+    while (curr != next) {
+        Node forward = curr.next;
+        curr.next = prev.next;
+        prev.next = curr;
+        last.next = forward;
+        curr = forward;
+    }
 
-        return last;
+    return last;
     }
 }
 
