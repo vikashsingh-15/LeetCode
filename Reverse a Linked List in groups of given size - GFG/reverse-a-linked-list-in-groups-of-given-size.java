@@ -110,14 +110,15 @@ class Solution
     
     
      private static Node reverseGroup(Node prev, Node next) {
-        Node last = prev.next;
+          Node last = prev.next;
         Node curr = last.next;
 
         while (curr != next) {
-            last.next = curr.next;
+            Node forward = curr.next;
             curr.next = prev.next;
             prev.next = curr;
-            curr = last.next;
+            last.next = forward;
+            curr = forward;
         }
 
         return last;
