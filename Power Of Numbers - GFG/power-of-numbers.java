@@ -59,26 +59,20 @@ class Solution
 {
         
     long power(int N,int R)
-    
     {
-         int MOD = 1000000007;
-        return powerMod(N, R, MOD);
+       return pR(N,R)%1000000007;
     }
     
-     public long powerMod(int base, int exponent, int modulo) {
-        if (exponent == 0) {
+    long pR(int N,int R){
+        if(R==0){
             return 1;
         }
-
-        long result = powerMod(base, exponent / 2, modulo);
-        result = (result * result) % modulo;
-
-        if (exponent % 2 == 1) {
-            result = (result * base) % modulo;
-        }
-
-        return (long) result;
+        long result=power(N,R/2);
+         result = (result*result)%1000000007;
+        if(R%2 == 0)
+            return result;
+        else
+            return result*N;
     }
-
 
 }
