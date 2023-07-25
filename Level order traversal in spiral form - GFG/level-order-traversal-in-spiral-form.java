@@ -166,10 +166,13 @@ class Spiral
                     q.add(curr.right);
                 }
             }
-            for(int i=0;i<levelList.size();i++){
-                ansList.add(levelList.get(i));
-            }
+            
+            ansList.addAll(levelList);
             level++;
+            // for(int i=0;i<levelList.size();i++){
+            //     ansList.add(levelList.get(i));
+            // }
+            // level++;
    
         }
         return ansList;
