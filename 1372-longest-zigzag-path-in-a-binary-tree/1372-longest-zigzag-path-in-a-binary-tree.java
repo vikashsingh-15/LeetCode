@@ -26,12 +26,13 @@ class Solution {
     private  void helper(TreeNode root, int step, boolean isRight) {
        if(root==null)return;
         
-        max=Math.max(max,step);
+      max=Math.max(max,step);
+        
         if(isRight){
             helper(root.left,step+1,false);
             helper(root.right,1,true);
         }else{
-            helper(root.right,step+1,true);
+             helper(root.right,step+1,true);
             helper(root.left,1,false);
         }
     }
