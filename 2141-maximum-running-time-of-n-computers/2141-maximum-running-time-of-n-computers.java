@@ -5,7 +5,7 @@ class Solution {
         for (int power : batteries) {
             sumPower += power;
         }
-        long left = 1, right = sumPower;
+        long left = 0, right = sumPower;
 
         while (left < right) {
             long mid = (left + right+1) / 2;
