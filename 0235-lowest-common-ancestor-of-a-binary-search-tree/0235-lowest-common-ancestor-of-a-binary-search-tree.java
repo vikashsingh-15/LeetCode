@@ -39,23 +39,29 @@ class Solution {
 
         //way 2
 
-        if (root == null) {
-            return null;
+        //         if (root == null) {
+        //             return null;
+        //         }
+        //         if (root == p || root == q) {
+        //             return root;
+        //         }
+        //         TreeNode leftAncestor = lowestCommonAncestor(root.left, p, q);
+        //         TreeNode rightAncestor = lowestCommonAncestor(root.right, p, q);
+        //         if (leftAncestor == null)
+        //             return rightAncestor;
+        //         if (rightAncestor == null)
+        //             return leftAncestor;
+
+        //         return root;
+
+        //way 3
+        if(root.val > p.val && root.val > q.val){
+            return lowestCommonAncestor(root.left,p,q);
         }
-        if (root == p || root == q) {
-            return root;
+        if(root.val < p.val && root.val < q.val){
+            return lowestCommonAncestor(root.right,p,q);
         }
-        TreeNode leftAncestor = lowestCommonAncestor(root.left, p, q);
-        TreeNode rightAncestor = lowestCommonAncestor(root.right, p, q);
-        if (leftAncestor == null) 
-            return rightAncestor;
-        if (rightAncestor == null)
-            return leftAncestor;
-        
         return root;
-        
-        
-        
     }
 
     public ArrayList<TreeNode> nodeToRootPath(TreeNode node, TreeNode target) {
