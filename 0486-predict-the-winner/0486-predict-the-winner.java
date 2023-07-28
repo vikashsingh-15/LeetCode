@@ -1,28 +1,26 @@
 class Solution {
-
-  int memo[][];
     public boolean PredictTheWinner(int[] nums) {
-        memo=new int[nums.length][nums.length];
-        int total=0;
-        for(int i=0;i<nums.length;i++){
-            total+=nums[i];
-            for(int j=0;j<nums.length;j++){
-                memo[i][j]=-1;
+        
+        int n = nums.length;
+        // Create a 2D DP table to store the maximum score difference for each subarray.
+        int[][] dp = new int[n][n];
+
+        // Fill the diagonal elements with the numbers in the array.
+        for (int i = 0; i < n; i++) {
+            dp[i][i] = nums[i];
+        }
+
+        // Fill the DP table diagonally in a bottom-up manner.
+        for (int length = 2; length <= n; length++) {
+            for (int i = 0; i < n - length + 1; i++) {
+                int j = i + length - 1;
+                dp[i][j] = Math.max(nums[i] - dp[i + 1][j], nums[j] - dp[i][j - 1]);
             }
         }
-        int p1Score=solve(nums,0,nums.length-1);
-        int p2Score=total-p1Score;
-        return (p1Score >= p2Score);
-    }
-    public int solve(int nums[],int i,int j){
-        if(i>j){
-            return 0;
-        }
-        if(memo[i][j]!=-1){
-            return memo[i][j];
-        }
-        int choose_i = nums[i] + Math.min(solve(nums,i+2,j),solve(nums,i+1,j-1));
-        int choose_j = nums[j] + Math.min(solve(nums,i+1,j-1),solve(nums,i,j-2));
-        return memo[i][j]=Math.max(choose_i,choose_j);
+
+        // If the maximum score difference for the whole array is greater than or equal to 0,
+        // then Player 1 can win; otherwise, Player 1 cannot win.
+        return dp[0][n - 1] >= 0; 
+        
     }
 }
