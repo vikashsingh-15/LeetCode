@@ -12,13 +12,13 @@ class Solution {
         double op3 = recur(a - 50, b - 50);
         double op4 = recur(a - 25, b - 75);
 
-        double result = 0.25 * (op1 + op2 + op3 + op4);
+        double result = (op1 + op2 + op3 + op4)/4.0;
         mp.put(new Pair(a, b), result);
         return result;
     }
 
     public double soupServings(int n) {
-        if (n >= 4800) return 1;
+        if (n >= 4800) return 1;//after n>4800 we see value in always 1 since with increase in n ans increses.
         double ans = recur(n, n);
         return ans;
     }
