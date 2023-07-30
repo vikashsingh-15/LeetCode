@@ -127,28 +127,37 @@ class Solution
 {
     // returns the inorder successor of the Node x in BST (rooted at 'root')
 	public Node inorderSuccessor(Node root,Node x){
-            ArrayList<Node> al= new ArrayList<>();
-             inOrder(root,al);
-             
-            // for(int i=0;i<al.size();i++){
-            //      System.out.print(" " +al.get(i).data);
+            // ArrayList<Node> al= new ArrayList<>();
+            //  inOrder(root,al);
+            //  for(int i=0;i<al.size();i++){
+            //      if(al.get(i).data==x.data){
+            //          if(i<al.size()-1)return al.get(i+1);
+            //      }
             //  }
-            //  System.out.println();
-             
-             for(int i=0;i<al.size();i++){
-                 if(al.get(i).data==x.data){
-                     if(i<al.size()-1)return al.get(i+1);
-                 }
-             }
             
-            return null;
+            // return null;
+            
+            //way 2
+            
+            Node successor = null;
+        
+                while (root != null) {
+                    if (root.data > x.data) {
+                        successor = root;
+                        root = root.left;
+                    } else {
+                        root = root.right;
+                    }
+                }
+                
+                return successor;
             
          }
          
-         public void inOrder(Node root,ArrayList<Node>a1){
-                if(root==null)return  ;
-                inOrder(root.left,a1);
-                a1.add(root);
-                inOrder(root.right,a1);
-         }
+        //  public void inOrder(Node root,ArrayList<Node>a1){
+        //         if(root==null)return  ;
+        //         inOrder(root.left,a1);
+        //         a1.add(root);
+        //         inOrder(root.right,a1);
+        //  }
 }
