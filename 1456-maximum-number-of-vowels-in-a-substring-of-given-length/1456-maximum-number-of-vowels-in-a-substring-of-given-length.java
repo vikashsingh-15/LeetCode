@@ -6,15 +6,22 @@ class Solution {
         // for (int i = 0; i <= s.length() - k; i++) {
         //     int vowelPerWindow = 0;
         //     for (int j = i; j < i + k; j++) {
-        //         if ("aeiouAEIOU".contains(String.valueOf(s.charAt(j)))) vowelPerWindow++;
+        //         if ("aeiouAEIOU".indexOf(s.charAt(j)) >= 0) {
+        //             vowelPerWindow++;
+        //         }
+        //         // or
+        //          // if ("aeiouAEIOU".contains(String.valueOf(s.charAt(j)))) vowelPerWindow++;
+        //         // or
+        //         // if ("aeiouAEIOU".contains(Character.toString(s.charAt(j)))) vowelPerWindow++;
         //     }
         //     maxVowel = Math.max(maxVowel, vowelPerWindow);
         // }
         // return maxVowel;
 
+        // way 2
 
-        int max_vow = 0,setCount = 0;        
-        for(int i=0;i<s.length();i++){
+        int max_vow = 0, setCount = 0;
+        for (int i = 0; i < s.length(); i++) {
             if (isVowel(s.charAt(i))) {
                 setCount++;
             }
@@ -23,8 +30,7 @@ class Solution {
                     setCount--;
                 }
             }
-             max_vow = Math.max(max_vow, setCount);
-        
+            max_vow = Math.max(max_vow, setCount);
         }
         return max_vow;
     }
