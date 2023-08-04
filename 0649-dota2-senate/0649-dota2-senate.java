@@ -7,12 +7,17 @@ class Solution {
           if(senate.charAt(i)=='R') radi.add(i);
           else dire.add(i);
       }
-         for(;!radi.isEmpty() && !dire.isEmpty();){
-            int r_i = radi.poll();
-            int d_i = dire.poll();
-            if(r_i < d_i) radi.add(r_i + n);
-            else dire.add(d_i + n);
+        int count=0;
+        while(!radi.isEmpty() && !dire.isEmpty()){
+            int d=dire.poll();
+            int r=radi.poll();
+            if(r<d){
+                radi.add(r+n);
+            }else{
+                dire.add(d+n);
+            }
+            
         }
         return radi.size() > dire.size() ? "Radiant" : "Dire";
-    }
+    }   
 }
