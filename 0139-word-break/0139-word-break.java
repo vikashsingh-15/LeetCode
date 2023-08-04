@@ -6,7 +6,7 @@ class Solution {
         dp[0] = true;
 
         for (int i = 0; i < dp.length; i++) {
-            for (int j = 0; j < i; j++) {
+            for (int j = 0; j < dp.length; j++) {
                 if (dp[j] && wordSet.contains(s.substring(j, i))) {
                     dp[i] = true;
                     break;
