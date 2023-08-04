@@ -1,31 +1,40 @@
 class Solution {
 
     public int singleNumber(int[] nums) {
-        //         int seenOnce = 0;
-        //         int seenTwice = 0;
+        //                 int seenOnce = 0;
+        //                 int seenTwice = 0;
 
-        //         for (int num : nums) {
-        //             seenOnce = ~seenTwice & (seenOnce ^ num);
-        //             seenTwice = ~seenOnce & (seenTwice ^ num);
-        //         }
-        //         return seenOnce;
+        //                 for (int num : nums) {
+        //                     seenOnce = ~seenTwice & (seenOnce ^ num);
+        //                     seenTwice = ~seenOnce & (seenTwice ^ num);
+        //                 }
+        //                 return seenOnce;
 
         //WAY 2
-        // int result = 0;
-        // for (int i = 0; i < 32; i++) {
-        //     int count = 0;
-        //     int mask = 1 << i;
-        //     for (int num : nums) {
-        //         if ((num & mask) != 0) {
-        //             count++;
-        //         }
-        //     }
-        //     if (count % 3 != 0) {
-        //         result |= mask;
-        //     }
-        // }
-        // return result;
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            int count = 0;
+            int mask = 1 << i;
+            // System.out.println("Mask ="+Integer.toBinaryString(mask));
+            for (int num : nums) {
+                // System.out.println("  num = "+num+" in  binary" +Integer.toBinaryString(num));
+                if ((num & mask) != 0) {
+                    count++;
+                }
+                // System.out.println("  Count = "+count);
+            }
+            if (count % 3 != 0) {
+                // System.out.println("  Count % 3 = "+count);
+                // System.out.println("  result before = "+result+" in binary ="+Integer.toBinaryString(result));
+                // System.out.println("  mask = "+mask+" in binary ="+Integer.toBinaryString(mask));
+                result |= mask;
+                // System.out.println("  result after = "+result+" in binary ="+Integer.toBinaryString(result));
 
+            }
+            // System.out.println("  result = "+result+" in binary ="+Integer.toBinaryString(result));
+
+        }
+        return result;
         
         
         //way 3
@@ -62,23 +71,23 @@ class Solution {
         //     }
         // }
         // return -1;
-        
+
         //way 5
-        
-         int ones = 0;
-        int twos = 0;
 
-        for (int num : nums) {
-            // Update 'twos' when 'ones' has the same bit as the current number
-            twos |= (ones & num);
-            // Update 'ones' to keep track of the bits that appear exactly once
-            ones ^= num;
-            // Mask to clear the bits that appear three times in both 'ones' and 'twos'
-            int mask = ~(ones & twos);
-            ones &= mask;
-            twos &= mask;
-        }
+        //          int ones = 0;
+        //         int twos = 0;
 
-        return ones;
+        //         for (int num : nums) {
+        //             // Update 'twos' when 'ones' has the same bit as the current number
+        //             twos |= (ones & num);
+        //             // Update 'ones' to keep track of the bits that appear exactly once
+        //             ones ^= num;
+        //             // Mask to clear the bits that appear three times in both 'ones' and 'twos'
+        //             int mask = ~(ones & twos);
+        //             ones &= mask;
+        //             twos &= mask;
+        //         }
+
+        //         return ones;
     }
 }
