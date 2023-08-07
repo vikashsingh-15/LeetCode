@@ -41,22 +41,27 @@ class Solution {
         
         //along the row
         for(int row=0;row<m;row++){
-            if(grid[row][0]==1){
+            // if(grid[row][0]==1){
+            //     dfs(grid,row,0);
+            // }
+            // if(grid[row][n-1]==1){
+            //      dfs(grid,row,n-1);
+            // }
                 dfs(grid,row,0);
-            }
-            if(grid[row][n-1]==1){
-                 dfs(grid,row,n-1);
-            }
+                 dfs(grid,row,n-1);            
         }
         
         //along the col
         for(int col=0;col<n;col++){
-            if(grid[0][col]==1){
+            // if(grid[0][col]==1){
+            //     dfs(grid,0,col);
+            // }
+            // if(grid[m-1][col]==1){
+            //      dfs(grid,m-1,col);
+            // }
+            
                 dfs(grid,0,col);
-            }
-            if(grid[m-1][col]==1){
                  dfs(grid,m-1,col);
-            }
         }
         
          int count=0;
