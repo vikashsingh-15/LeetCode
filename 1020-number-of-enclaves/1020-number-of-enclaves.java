@@ -1,59 +1,41 @@
 class Solution {
-
     public int numEnclaves(int[][] grid) {
-        
-        if(grid[0].length<=1){
-            return 0;
-        }
-        int rows = grid.length;
-        int col = grid[0].length;
-        int no_of_islands = 0;
-        for (int i = 0; i < col; i++) {
-            mark_current_island(grid, 0, i);
-     
-
-        }
-        for (int i = 1; i < rows; i++) {
-            mark_current_island(grid, i, col - 1);
-         
-        }
-        for (int i = col - 2; i >= 0; i--) {
-
-            mark_current_island(grid, rows - 1, i);
-        }
-        for (int i = rows - 2; i >= 1; i--) {
-      
-            mark_current_island(grid, i, 0);
-        }
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < col; j++) {
-                if (grid[i][j] == 1) {
-                    no_of_islands++;
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(i==0 ||j==0 || i==grid.length-1 || j==grid[0].length-1){//to run code on border only
+                    if(grid[i][j]==1){
+                        dfs(grid,i,j);
+                    }
                 }
             }
         }
-
-        return no_of_islands;
+        int count=0;
+         for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                    if(grid[i][j]==1){
+                      count++;
+                     }
+            }
+        }
+        
+        return count;
     }
-
-    void mark_current_island(int[][] grid, int x, int y) {
-        int r = grid.length;
-        int c = grid[0].length;
-        if (x < 0 || x >= r || y < 0 || y >= c) {
+    
+    public static void dfs(int [][] grid,int i,int j){
+        if(i<0 ||j<0 || i>=grid.length||j>=grid[0].length||grid[i][j]==0){
             return;
+        }else{
+            grid[i][j]=0;
+            dfs(grid,i+1,j);
+            dfs(grid,i-1,j);
+            dfs(grid,i,j+1);
+            dfs(grid,i,j-1);
         }
-
-        if (grid[x][y] == 0) {
-            return;
-        }
-
-        grid[x][y] = 0;
-
-        mark_current_island(grid, x + 1, y);
-        mark_current_island(grid, x, y + 1);
-        mark_current_island(grid, x - 1, y);
-        mark_current_island(grid, x, y - 1);
-        // return up & down & left & right;
     }
 }
+
+// class Solution {
+//     public int numEnclaves(int[][] grid) {
+        
+//     }
+// }
