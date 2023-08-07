@@ -1,38 +1,41 @@
 class Solution {
-
     public int closedIsland(int[][] grid) {
-        int rows = grid.length;
-        if (rows == 0) {
-            return 0;
-        }
-        int col = grid[0].length;
-        int no_of_islands = 0;
-        boolean vis[][] = new boolean[rows][col];
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < col; j++) {
-                if (grid[i][j] == 0) {
-                    no_of_islands += mark_current_island(grid, i, j, rows, col);
+        for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                if(i==0 ||j==0 || i==grid.length-1 || j==grid[0].length-1){//to run code on border only
+                    if(grid[i][j]==0){
+                        dfs(grid,i,j);
+                    }
                 }
             }
         }
-        return no_of_islands;
+        int count=0;
+         for(int i=0;i<grid.length;i++){
+            for(int j=0;j<grid[0].length;j++){
+                    if(grid[i][j]==0){
+                        dfs(grid,i,j);
+                      count++;
+                     }
+            }
+        } 
+        return count;
     }
-
-    int mark_current_island(int[][] grid, int x, int y, int r, int c) {
-        if (x < 0 || x >= r || y < 0 || y >= c) {
-            return 0;
+    
+     public static void dfs(int [][] grid,int i,int j){
+        if(i<0 ||j<0 || i>=grid.length||j>=grid[0].length||grid[i][j]==1){
+            return;
+        }else{
+            grid[i][j]=1;
+            dfs(grid,i+1,j);
+            dfs(grid,i-1,j);
+            dfs(grid,i,j+1);
+            dfs(grid,i,j-1);
         }
-
-        if (grid[x][y] == 1) {
-            return 1;
-        }
-
-        grid[x][y] = 1;
-
-        int up = mark_current_island(grid, x + 1, y, r, c);
-        int down = mark_current_island(grid, x, y + 1, r, c);
-        int left = mark_current_island(grid, x - 1, y, r, c);
-        int right = mark_current_island(grid, x, y - 1, r, c);
-        return up & down & left & right;
     }
 }
+
+// class Solution {
+//     public int closedIsland(int[][] grid) {
+        
+//     }
+// }
