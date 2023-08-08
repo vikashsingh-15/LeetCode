@@ -92,4 +92,35 @@ class Solution {
         return b == 0 ? a : gcd(b, a % b);
     }
 }
+
+// TLE
+
+// class Solution {
+//     public static int countFractions(int N, int[] numerator, int[] denominator) {
+//         int count=0;
+//         for(int i=0;i<N;i++){
+//             for(int j=i+1;j<N;j++){
+              
+//               double lcm= lcm(denominator[i],denominator[j]);
+//               double term1=((lcm/denominator[i])*numerator[i]);
+//                 double term2=((lcm/denominator[j])*numerator[j]);
+//                 double sum=(double)((double)(term1+term2)/lcm);
+//                 if(sum==1.0){
+//                     count++;
+//                 }
+//             }
+//         }
+//         return count;
         
+//     }
+//      public static double lcm(int a, int b) {
+//         return (a * b) / gcd(a, b);
+//     }
+//      public static double gcd(int a, int b) {
+//         if (b == 0) {
+//             return a;
+//         }
+//         return gcd(b, a % b);
+//     }
+// }
+
