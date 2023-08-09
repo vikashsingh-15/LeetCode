@@ -50,7 +50,8 @@ class Solution {
         //Node newNode=new Node(node.val,new ArrayList<>());
         visited.put(node, newNode);
         for (Node neighbor : node.neighbors) {
-            newNode.neighbors.add(cloneGraph(neighbor));
+            Node temp=cloneGraph(neighbor);
+            newNode.neighbors.add(temp);
         }
         return newNode;
     }
