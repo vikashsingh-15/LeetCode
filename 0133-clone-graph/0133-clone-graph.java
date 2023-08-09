@@ -18,19 +18,36 @@ class Node {
 }
 */
 
+// class Solution {
+//      Node[] copyNodes = new Node[100];
+
+//     public Node cloneGraph(Node node){
+//         if (node == null) return null;
+//         int ind = node.val-1;
+//         if (copyNodes[ind] == null){
+//             copyNodes[ind] = new Node(node.val);
+//             for (Node neighbor : node.neighbors)
+//                 copyNodes[ind].neighbors.add(cloneGraph(neighbor));
+//         }
+//         return copyNodes[ind];
+//     }
+// }
+
 class Solution {
-     Node[] copyNodes = new Node[100];
-    
-    public Node cloneGraph(Node node) 
-    {
-        if (node == null) return null; 
-        int ind = node.val-1; 
-        if (copyNodes[ind] == null) 
-        {
-            copyNodes[ind] = new Node(node.val); 
-            for (Node neighbor : node.neighbors) 
-                copyNodes[ind].neighbors.add(cloneGraph(neighbor));
+ private Map<Node, Node> visited = new HashMap<>();
+    public Node cloneGraph(Node node) {
+        if(node==null){
+            return null;
+        }        
+        if(visited.containsKey(node)){
+            return visited.get(node);
         }
-        return copyNodes[ind];
+        
+        Node newNode=new Node(node.val);
+        visited.put(node,newNode);
+        for(Node neighbor:node.neighbors){
+            newNode.neighbors.add(cloneGraph(neighbor));
+        }
+        return newNode;
     }
 }
