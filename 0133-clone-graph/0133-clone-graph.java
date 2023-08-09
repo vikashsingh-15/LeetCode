@@ -33,6 +33,7 @@ class Node {
 //     }
 // }
 
+// DFS
 class Solution {
  private Map<Node, Node> visited = new HashMap<>();
     public Node cloneGraph(Node node) {
@@ -43,7 +44,7 @@ class Solution {
             return visited.get(node);
         }
         
-        Node newNode=new Node(node.val);
+        Node newNode=new Node(node.val,new ArrayList<>());
         visited.put(node,newNode);
         for(Node neighbor:node.neighbors){
             newNode.neighbors.add(cloneGraph(neighbor));
@@ -52,7 +53,7 @@ class Solution {
     }
 }
 
-
+// BFS
 // class Solution {
 //     public Node cloneGraph(Node node) {
 //       if (node == null) {
@@ -61,16 +62,16 @@ class Solution {
 
 //         Map<Node, Node> visited = new HashMap<>();
 //         Queue<Node> queue = new LinkedList<>();
-//         queue.offer(node);
-//         visited.put(node, new Node(node.val));
+//         queue.add(node);
+//         visited.put(node, new Node(node.val,new ArrayList<>()));
 
 //         while (!queue.isEmpty()) {
 //             Node curr = queue.poll();
 
 //             for (Node neighbor : curr.neighbors) {
 //                 if (!visited.containsKey(neighbor)) {
-//                     visited.put(neighbor, new Node(neighbor.val));
-//                     queue.offer(neighbor);
+//                     visited.put(neighbor, new Node(neighbor.val,new ArrayList<>()));));
+//                     queue.add(neighbor);
 //                 }
 //                 visited.get(curr).neighbors.add(visited.get(neighbor));
 //             }
