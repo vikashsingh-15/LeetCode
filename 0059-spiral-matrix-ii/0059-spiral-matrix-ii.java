@@ -6,7 +6,7 @@ class Solution {
         }
         int[][] matrix = new int[n][n];
         
-        int total=n*n;
+        // int total=n*n;
         int num=1;
         int left = 0, right = n-1, top = 0, bottom = n-1;
         while (left <= right && top <= bottom) {
