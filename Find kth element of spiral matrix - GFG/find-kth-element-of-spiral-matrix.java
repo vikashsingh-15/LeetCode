@@ -28,6 +28,8 @@ class Find_Given_Element_Of_Spiral_Matrix
 // } Driver Code Ends
 
 
+
+
 class Solution
 {
     /*You are required to complete this method*/
@@ -42,7 +44,7 @@ class Solution
          if (k > total) {
             return -1; 
         }
-       while(count<k){
+       while(count<=k){
            if(count<total){
                for(int i=colStart;i<=colEnd;i++){
                    count++;
@@ -54,7 +56,7 @@ class Solution
            }
            
            
-            if(count<k){
+            if(count<=k){
                for(int i=rowStart;i<=rowEnd;i++){
                    count++;
                    if(count==k){
@@ -65,7 +67,7 @@ class Solution
            }
            
            
-            if(count<k){
+            if(count<=k){
                for(int i=colEnd;i>=colStart;i--){
                    count++;
                    if(count==k){
@@ -75,7 +77,7 @@ class Solution
                rowEnd--;
            }
            
-            if(count<k){
+            if(count<=k){
                for(int i=rowEnd;i>=rowStart;i--){
                    count++;
                    if(count==k){
