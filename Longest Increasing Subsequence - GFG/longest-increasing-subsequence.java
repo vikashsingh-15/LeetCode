@@ -37,6 +37,8 @@ class GFG{
 
 
 
+
+
 class Solution 
 {
     //Function to find length of longest increasing subsequence.
@@ -44,21 +46,28 @@ class Solution
     {
         int[] dp = new int[size];
         int len = 0;
-        
-        for (int num : nums) {
-            int index = Arrays.binarySearch(dp, 0, len, num);
-            
-            if (index < 0) {
-                index = -(index + 1);
-            }
-            
-            dp[index] = num;
-            
+
+        for (int i=0;i<size;i++) {
+            int index = binarySearch(dp, 0, len, nums[i]);
+
+            dp[index] = nums[i];
+
             if (index == len) {
                 len++;
             }
         }
-        
+
         return len;
+    }
+     public static int binarySearch(int[] dp, int low, int high, int target) {
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+            if (dp[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        return low;
     }
 } 
