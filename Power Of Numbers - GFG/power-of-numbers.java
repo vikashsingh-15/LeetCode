@@ -57,24 +57,29 @@ class Main {
 
 class Solution
 {
-        
-    long power(int N,int R)
-    {
-       return pR(N,R)%1000000007;
-    }
-    
-    long pR(int N,int R){
-        if(R==0){
-          return 1;  
+     static final int MOD = 1000000007;
+
+    public long power(int N, int R) {
+        if (N == 0) return 0;
+
+        long x = N;
+        long b = R;
+        long res = 1;
+
+        if (b < 0) {
+            x = power(N, -R);
+            b = -b;
         }
-        long result=pR(N,R/2)%1000000007;
-        result=(result*result)%1000000007;
-        if(R%2==0){
-            return result;
-        }else{
-            return result*N;
+
+        while (b > 0) {
+            if (b % 2 == 1) {
+                res = (res * x) % MOD;
+            }
+            x = (x * x) % MOD;
+            b /= 2;
         }
-        
+
+        return res;
     }
 
 }
