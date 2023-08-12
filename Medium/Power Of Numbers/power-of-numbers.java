@@ -67,7 +67,7 @@ class Solution
         long res = 1;
 
         if (b < 0) {
-            x = power(N, -R);
+             x = 1 / x;
             b = -b;
         }
 
