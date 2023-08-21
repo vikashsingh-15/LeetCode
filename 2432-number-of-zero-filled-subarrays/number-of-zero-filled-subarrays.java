@@ -16,10 +16,11 @@ class Solution {
         long count = 0;  
         long consecutiveZeros = 0;  
         
-        for (int num : nums) {
-            if (num == 0) {
+        for (int i=0;i<nums.length;i++) {
+            if (nums[i] == 0) {
                 consecutiveZeros++;
                 count += consecutiveZeros;  // Increment count by the count of consecutive zeros
+            // System.out.println("count at "+i+" = "+count);
             } else {
                 consecutiveZeros = 0;  // Reset consecutive zeros count
             }
