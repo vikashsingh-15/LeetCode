@@ -8,8 +8,8 @@ class Solution {
         int[] dp = new int[n];
         int[] count = new int[n];
 
-        Arrays.fill(count, 1);
         dp[0] = 1;
+        count[0]=1;
         int ans = 0;
 
         for (int i = 1; i < n; i++) {
