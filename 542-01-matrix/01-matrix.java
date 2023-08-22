@@ -43,3 +43,41 @@ class Solution {
         return result;
     }
 }
+
+//way 2 ->TLE by DFS
+
+// class Solution {
+//     public int[][] updateMatrix(int[][] mat) {
+//         int m = mat.length;
+//         int n = mat[0].length;
+//         int[][] result = new int[m][n];
+//         // Initialize result matrix with -1 and enqueue cells with value 1
+//         for (int i = 0; i < m; i++) {
+//             for (int j = 0; j < n; j++) {
+//                 if (mat[i][j] >0) {
+//                     result[i][j]=dfs(mat,i,j,new boolean[m][n]);
+//                 }
+//             }
+//         }
+//         return result;
+//     }
+
+//     public int dfs(int[][] mat, int x, int y,boolean[][] visited){
+//         if(x<0 ||y<0||x>=mat.length||y>=mat[0].length||visited[x][y]){
+//             return 10000000;
+//         }
+//         if(mat[x][y]==0){
+//             return 0;
+//         } 
+//         visited[x][y]=true;
+//         int val=1+Math.min(
+//             Math.min(dfs(mat,x+1,y,visited),dfs(mat,x-1,y,visited)),
+//             Math.min(dfs(mat,x,y+1,visited),dfs(mat,x,y-1,visited))
+        
+//         );
+//         visited[x][y]=false;
+//         return val;
+        
+//     }
+// }
+
