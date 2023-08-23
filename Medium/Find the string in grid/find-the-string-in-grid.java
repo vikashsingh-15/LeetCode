@@ -45,6 +45,59 @@ class GFG
 
 //User function Template for Java
 
+// class Solution
+// {
+//     public int[][] searchWord(char[][] grid, String word)
+//     {
+//         int row = grid.length;
+//         int cols = grid[0].length;
+//         int len = word.length();
+        
+//             int[] dx = {-1, 1, 0, 0, -1, -1, 1, 1};
+//             int[] dy = {0, 0, -1, 1, -1, 1, -1, 1};
+//         List<int[]> result = new ArrayList<>();
+        
+//         for (int i = 0; i < row; i++) {
+//             for (int j = 0; j < cols; j++) {
+//                 if (grid[i][j] == word.charAt(0)) {
+//                     for(int dir=0;dir<8;dir++){
+//                         int x=dx[dir];
+//                         int y=dy[dir];
+//                         int newX=i;
+//                         int newY=j;
+//                         int k=0;
+                       
+//                       for( k=1;k<word.length();k++){
+//                             newX = x + newX;
+//                             newY = y + newY;
+//                             if (newX < 0 || newX >= row || newY < 0 || newY >= cols || grid[newX][newY] != word.charAt(k)) {
+//                                 break;
+//                             }
+//                       }
+                       
+//                       if (k == word.length()) {
+//                             result.add(new int[]{i, j});
+//                             break;
+//                         }
+                       
+//                     }
+//                 }
+//             }
+//         }
+        
+//         int[][] ans = new int[result.size()][2];
+//         for (int i = 0; i < result.size(); i++) {
+//             ans[i] = result.get(i);
+//         }
+        
+//         return ans;
+//     }
+// }
+
+
+//way 2
+
+
 class Solution
 {
     public int[][] searchWord(char[][] grid, String word)
@@ -61,25 +114,10 @@ class Solution
             for (int j = 0; j < cols; j++) {
                 if (grid[i][j] == word.charAt(0)) {
                     for(int dir=0;dir<8;dir++){
-                        int x=dx[dir];
-                        int y=dy[dir];
-                        int newX=i;
-                        int newY=j;
-                        int k=0;
-                       
-                       for( k=1;k<word.length();k++){
-                            newX = x + newX;
-                            newY = y + newY;
-                            if (newX < 0 || newX >= row || newY < 0 || newY >= cols || grid[newX][newY] != word.charAt(k)) {
-                                break;
-                            }
-                       }
-                       
-                       if (k == word.length()) {
+                        if (searchInDirection(grid, word, i, j, dx[dir], dy[dir])) {
                             result.add(new int[]{i, j});
                             break;
                         }
-                       
                     }
                 }
             }
@@ -91,5 +129,23 @@ class Solution
         }
         
         return ans;
+    }
+    
+    private boolean searchInDirection(char[][] grid, String word, int x, int y, int dx, int dy) {
+        int row = grid.length;
+        int cols = grid[0].length;
+        
+        int newX = x;
+        int newY = y;
+        
+        for (int k = 1; k < word.length(); k++) {
+            newX += dx;
+            newY += dy;
+            if (newX < 0 || newX >= row || newY < 0 || newY >= cols || grid[newX][newY] != word.charAt(k)) {
+                return false;
+            }
+        }
+        
+        return true;
     }
 }
