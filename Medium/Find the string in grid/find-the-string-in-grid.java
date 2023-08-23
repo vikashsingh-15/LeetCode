@@ -49,38 +49,37 @@ class Solution
 {
     public int[][] searchWord(char[][] grid, String word)
     {
-        int n = grid.length;
-        int m = grid[0].length;
+        int row = grid.length;
+        int cols = grid[0].length;
         int len = word.length();
         
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
-        
+            int[] dx = {-1, 1, 0, 0, -1, -1, 1, 1};
+            int[] dy = {0, 0, -1, 1, -1, 1, -1, 1};
         List<int[]> result = new ArrayList<>();
         
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < cols; j++) {
                 if (grid[i][j] == word.charAt(0)) {
-                    for (int[] dir : directions) {
-                        int dx = dir[0];
-                        int dy = dir[1];
-                        
-                        int x = i;
-                        int y = j;
-                        
-                        int k;
-                        for (k = 1; k < len; k++) {
-                            x += dx;
-                            y += dy;
-                            
-                            if (x < 0 || x >= n || y < 0 || y >= m || grid[x][y] != word.charAt(k)) {
+                    for(int dir=0;dir<8;dir++){
+                        int x=dx[dir];
+                        int y=dy[dir];
+                        int newX=i;
+                        int newY=j;
+                        int k=0;
+                       
+                       for( k=1;k<word.length();k++){
+                            newX = x + newX;
+                            newY = y + newY;
+                            if (newX < 0 || newX >= row || newY < 0 || newY >= cols || grid[newX][newY] != word.charAt(k)) {
                                 break;
                             }
-                        }
-                        
-                        if (k == len) {
+                       }
+                       
+                       if (k == word.length()) {
                             result.add(new int[]{i, j});
                             break;
                         }
+                       
                     }
                 }
             }
