@@ -1,6 +1,6 @@
 // class Solution {
 //     public int minDistance(String word1, String word2) {
-//               int m = word1.length();
+//         int m = word1.length();
 //         int n = word2.length();
 //         int[][] dp = new int [m+1][n+1];
 
@@ -22,6 +22,34 @@
 //         return dp[m][n];
 //     }
 // }
+
+
+////way 2
+
+class Solution {
+    public int minDistance(String word1, String word2) {
+                int m = word1.length();
+        int n = word2.length();
+        int[][] dp = new int[m + 1][n + 1];
+
+        for (int i = m; i >= 0; i--) {
+            for (int j = n; j >= 0; j--) {
+                if (i == m) {
+                    dp[i][j] = n - j;
+                }else if (j == n) {
+                    dp[i][j] = m - i;
+                } else if (word1.charAt(i) == word2.charAt(j)) {
+                    dp[i][j] = dp[i + 1][j + 1];
+                } else {
+                    dp[i][j] = 1 + Math.min(dp[i + 1][j + 1], Math.min(dp[i + 1][j], dp[i][j + 1]));
+                }
+            }
+        }
+
+        return dp[0][0];
+
+    }
+}
 
 //BruteForce ->TLE
 // class Solution {
@@ -53,41 +81,87 @@
 
 End of word2 reached: If we have processed all characters in word2 (reached the end of word2), it means that any remaining characters in word1 need to be deleted to match word2.  */
 
-class Solution {
 
-    public int minDistance(String word1, String word2) {
-       Map<String, Integer> memo = new HashMap<>();
-       return calculateDistance(word1, word2, 0, 0,memo);
-    }
 
-    public int calculateDistance(String word1, String word2, int i, int j,Map<String, Integer> memo) {
-        String key = i + "," + j;
-        if (memo.containsKey(key)) {
-            return memo.get(key);
-        }
+//way 3
 
-        if (i == word1.length()) {
-            memo.put(key, word2.length() - j);
-            return memo.get(key);
-        }
-        if (j == word2.length()) {
-            memo.put(key, word1.length() - i);
-            return memo.get(key);
-        }
+// class Solution {
 
-        if (word1.charAt(i) == word2.charAt(j)) {
-            int result = calculateDistance(word1, word2, i + 1, j + 1, memo);
-            memo.put(key, result);
-            return result;
-        }
+//     public int minDistance(String word1, String word2) {
+//        Map<String, Integer> memo = new HashMap<>();
+//        return calculateDistance(word1, word2, 0, 0,memo);
+//     }
 
-        int insert = calculateDistance(word1, word2, i, j + 1, memo) + 1;
-        int delete = calculateDistance(word1, word2, i + 1, j, memo) + 1;
-        int replace = calculateDistance(word1, word2, i + 1, j + 1, memo) + 1;
+//     public int calculateDistance(String word1, String word2, int i, int j,Map<String, Integer> memo) {
+//         String key = i + "," + j;
+//         if (memo.containsKey(key)) {
+//             return memo.get(key);
+//         }
 
-        int result = Math.min(insert, Math.min(delete, replace));
-        memo.put(key, result);
-        return result;
+//         if (i == word1.length()) {
+//             memo.put(key, word2.length() - j);
+//             return memo.get(key);
+//         }
+//         if (j == word2.length()) {
+//             memo.put(key, word1.length() - i);
+//             return memo.get(key);
+//         }
 
-    }
-}
+//         if (word1.charAt(i) == word2.charAt(j)) {
+//             int result = calculateDistance(word1, word2, i + 1, j + 1, memo);
+//             memo.put(key, result);
+//             return result;
+//         }
+
+//         int insert = calculateDistance(word1, word2, i, j + 1, memo) + 1;
+//         int delete = calculateDistance(word1, word2, i + 1, j, memo) + 1;
+//         int replace = calculateDistance(word1, word2, i + 1, j + 1, memo) + 1;
+
+//         int result = Math.min(insert, Math.min(delete, replace));
+//         memo.put(key, result);
+//         return result;
+
+//     }
+// }
+
+//way 4
+
+// class Solution{
+//     public static int minDistance(String word1, String word2) {
+//         int m = word1.length();
+//         int n = word2.length();
+//         int[][] memo = new int[m][n];
+//         for (int i = 0; i < m; i++) {
+//             Arrays.fill(memo[i], -1); // Initialize with -1 to indicate uncalculated values
+//         }
+//         return calculateDistance(word1, word2, 0, 0, memo);
+//     }
+
+//     private static int calculateDistance(String word1, String word2, int i, int j, int[][] memo) {
+//         if (i == word1.length()) {
+//             return word2.length() - j;
+//         }
+//         if (j == word2.length()) {
+//             return word1.length() - i;
+//         }
+
+//         if (memo[i][j] != -1) {
+//             return memo[i][j];
+//         }
+
+//         if (word1.charAt(i) == word2.charAt(j)) {
+//             int result = calculateDistance(word1, word2, i + 1, j + 1, memo);
+//             memo[i][j] = result;
+//             return result;
+//         }
+
+//         int insert = calculateDistance(word1, word2, i, j + 1, memo) + 1;
+//         int delete = calculateDistance(word1, word2, i + 1, j, memo) + 1;
+//         int replace = calculateDistance(word1, word2, i + 1, j + 1, memo) + 1;
+
+//         int result = Math.min(insert, Math.min(delete, replace));
+//         memo[i][j] = result;
+//         return result;
+//     }
+
+// }
