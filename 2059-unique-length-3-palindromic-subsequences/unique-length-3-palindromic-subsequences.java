@@ -60,7 +60,31 @@
 // }
 
 
-//code 3
+//code 3 TLE
+
+// class Solution {
+//     public int countPalindromicSubsequence(String s) {
+//         int result = 0;
+//         int n = s.length();
+//            Set<String> set = new HashSet<>();
+
+//         for (char c = 'a'; c <= 'z'; c++) {
+//             int firstOccurrence = s.indexOf(c);
+//             int lastOccurrence = s.lastIndexOf(c);
+
+//             if (firstOccurrence != -1 && lastOccurrence != -1 && firstOccurrence < lastOccurrence) {
+             
+//                 for (int i = firstOccurrence + 1; i < lastOccurrence; i++) {
+//                     set.add(""+s.indexOf(c)+s.lastIndexOf(c)+s.charAt(i));
+//                 }
+//             }
+//         }
+
+//         return set.size();
+//     }
+// }
+
+//code 4
 
 class Solution {
     public int countPalindromicSubsequence(String s) {
