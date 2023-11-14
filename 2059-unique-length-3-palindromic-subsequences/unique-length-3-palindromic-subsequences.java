@@ -62,51 +62,51 @@
 
 //code 3 TLE
 
-// class Solution {
-//     public int countPalindromicSubsequence(String s) {
-//         int result = 0;
-//         int n = s.length();
-//            Set<String> set = new HashSet<>();
-
-//         for (char c = 'a'; c <= 'z'; c++) {
-//             int firstOccurrence = s.indexOf(c);
-//             int lastOccurrence = s.lastIndexOf(c);
-
-//             if (firstOccurrence != -1 && lastOccurrence != -1 && firstOccurrence < lastOccurrence) {
-             
-//                 for (int i = firstOccurrence + 1; i < lastOccurrence; i++) {
-//                     set.add(""+s.indexOf(c)+s.lastIndexOf(c)+s.charAt(i));
-//                 }
-//             }
-//         }
-
-//         return set.size();
-//     }
-// }
-
-//code 4
-
 class Solution {
     public int countPalindromicSubsequence(String s) {
         int result = 0;
         int n = s.length();
+           Set<String> set = new HashSet<>();
 
         for (char c = 'a'; c <= 'z'; c++) {
             int firstOccurrence = s.indexOf(c);
             int lastOccurrence = s.lastIndexOf(c);
 
             if (firstOccurrence != -1 && lastOccurrence != -1 && firstOccurrence < lastOccurrence) {
-                Set<Character> uniqueChars = new HashSet<>();
+             
                 for (int i = firstOccurrence + 1; i < lastOccurrence; i++) {
-                    uniqueChars.add(s.charAt(i));
+                    set.add(""+c+s.charAt(i)+c);
                 }
-                result += uniqueChars.size();
             }
         }
 
-        return result;
+        return set.size();
     }
 }
+
+//code 4
+
+// class Solution {
+//     public int countPalindromicSubsequence(String s) {
+//         int result = 0;
+//         int n = s.length();
+
+//         for (char c = 'a'; c <= 'z'; c++) {
+//             int firstOccurrence = s.indexOf(c);
+//             int lastOccurrence = s.lastIndexOf(c);
+
+//             if (firstOccurrence != -1 && lastOccurrence != -1 && firstOccurrence < lastOccurrence) {
+//                 Set<Character> uniqueChars = new HashSet<>();
+//                 for (int i = firstOccurrence + 1; i < lastOccurrence; i++) {
+//                     uniqueChars.add(s.charAt(i));
+//                 }
+//                 result += uniqueChars.size();
+//             }
+//         }
+
+//         return result;
+//     }
+// }
 
 
 
