@@ -73,7 +73,7 @@ class Solution {
 
     private void solve(int u, int prev, Map<Integer, List<Integer>> map) {
         result.add(u);
-
+        //prev is needed to keep track of visited
         for (int v : map.get(u)) {
             if (v != prev) {
                 solve(v, u, map);
