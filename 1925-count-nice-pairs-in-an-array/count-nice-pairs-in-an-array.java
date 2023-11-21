@@ -12,8 +12,13 @@ class Solution {
         }
 
         for (int count : map.values()) {
-              nicePairs = (int) ((nicePairs + (long) count * (count - 1) / 2) % mod);
+            //   nicePairs = (int) ((nicePairs + (long) count * (count - 1) / 2) % mod);
 
+            //   //or//
+            long additionalPairs = (long) count * (count - 1) / 2;
+            long updatedNicePairs = nicePairs + additionalPairs;
+            int finalNicePairs = (int) (updatedNicePairs % mod);
+            nicePairs = finalNicePairs;
         }
 
         return nicePairs;
