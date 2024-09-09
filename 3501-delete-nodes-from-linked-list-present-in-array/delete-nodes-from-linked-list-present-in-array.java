@@ -12,7 +12,7 @@ class Solution {
             }else{
                 prev = curr;
             }
-            curr = nextNode;
+            curr = curr.next;
         }
         return dummyHead.next;
     }
