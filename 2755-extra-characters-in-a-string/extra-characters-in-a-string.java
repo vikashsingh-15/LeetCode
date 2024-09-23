@@ -1,28 +1,31 @@
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
-    private int[] dp = new int[51]; // Initialize dp array with 0 values
-
     public int minExtraChar(String s, String[] dictionary) {
-        Arrays.fill(dp, -1); // Initialize dp array with -1 values
-        return minExtraCharHelper(s, dictionary, 0);
-    }
-
-    private int minExtraCharHelper(String s, String[] dictionary, int i) {
-        if (i == s.length()) {
-            return 0;
+        Set<String> dict = new HashSet<>();
+        for (String word : dictionary) {
+            dict.add(word); // Add dictionary words to a set for quick lookup
         }
+        int n = s.length();
+        int[] dp = new int[n + 1]; // DP array to track the minimum extra characters
+        for (int i = 0; i <= n; i++) {
+            dp[i] = n; // Initialize with maximum extra characters
+        }
+        dp[0] = 0; // No extra characters for an empty string
 
-        if (dp[i] == -1) {
-            dp[i] = 1 + minExtraCharHelper(s, dictionary, i + 1); // Initialize with one extra character
-
-            for (String w : dictionary) {
-                if (i + w.length() <= s.length() && s.substring(i, i + w.length()).equals(w)) {
-                    dp[i] = Math.min(dp[i], minExtraCharHelper(s, dictionary, i + w.length())); // Update if a word in the dictionary is found
+        // Iterate through each index in the string
+        for (int i = 1; i <= n; i++) {
+            // Check all substrings ending at i
+            for (int j = 0; j < i; j++) {
+                String sub = s.substring(j, i); // Get substring s[j:i]
+                if (dict.contains(sub)) {
+                    dp[i] = Math.min(dp[i], dp[j]); // If substring found in dictionary
                 }
             }
+            dp[i] = Math.min(dp[i], dp[i - 1] + 1); // Consider current character as extra
         }
 
-        return dp[i]; // Return the minimum extra characters starting from position i
+        return dp[n]; // Return the result from dp[n]
     }
 }
