@@ -39,6 +39,7 @@ class Solution {
             end1--;
             end2--;
         }
-        return end1<start;
+        return (start + (count1 - end1)) == (count1 + 1);
+         // return end1<start;
     }
 }
