@@ -1,64 +1,54 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public int[][] spiralMatrix(int m, int n, ListNode head) {
-        int left = 0, right = n - 1, top = 0, bottom = m - 1;
-        int mat[][] = new int[m][n];
-        
-        ListNode curr = head;
-        int noOfCells = 0;
-        
-        while (curr != null || noOfCells < m * n) {
+        ListNode curr=head;
+        int arr[][]=new int[m][n];
+        int left=0;
+        int right=n-1;
+        int top=0;
+        int bottom=m-1;
 
-            for (int c = left; c <= right && isSafe(left, right, top, bottom); c++) {
-                int val = -1;
-                if (curr != null) {
-                    val = curr.val;
-                    curr = curr.next;
-                }
-                mat[top][c] = val;
-                noOfCells++;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                arr[i][j]=-1;
+            }
+        }
+
+        while(curr!=null){
+            for(int i=left;i<=right && curr != null;i++){
+                arr[top][i]=curr.val;
+                curr=curr.next;
             }
             top++;
-            
-   
-            for (int r = top; r <= bottom && isSafe(left, right, top, bottom); r++) {
-                int val = -1;
-                if (curr != null) {
-                    val = curr.val;
-                    curr = curr.next;
-                }
-                mat[r][right] = val;
-                noOfCells++;
+            for(int i=top;i<=bottom && curr!=null;i++){
+                arr[i][right]=curr.val;
+                curr=curr.next;
             }
             right--;
-            
-     
-            for (int c = right; c >= left && isSafe(left, right, top, bottom); c--) {
-                int val = -1;
-                if (curr != null) {
-                    val = curr.val;
-                    curr = curr.next;
-                }
-                mat[bottom][c] = val;
-                noOfCells++;
+
+            for(int i=right;i>=left && curr!=null;i--){
+                arr[bottom][i]=curr.val;
+                curr=curr.next;
             }
             bottom--;
-            
-    
-            for (int r = bottom; r >= top && isSafe(left, right, top, bottom); r--) {
-                int val = -1;
-                if (curr != null) {
-                    val = curr.val;
-                    curr = curr.next;
-                }
-                mat[r][left] = val;
-                noOfCells++;
+
+            for(int i=bottom;i>=top && curr!=null;i--){
+                arr[i][left]=curr.val;
+                curr=curr.next;
             }
             left++;
         }
+       
+        return arr;
         
-        return mat;
-    }
-    private boolean isSafe(int left, int right, int top, int bottom){
-        return left <= right && bottom >= top;
     }
 }
