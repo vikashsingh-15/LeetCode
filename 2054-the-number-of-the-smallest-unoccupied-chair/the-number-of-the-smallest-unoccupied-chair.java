@@ -1,21 +1,27 @@
 class Solution {
 
     public int smallestChair(int[][] times, int targetFriend) {
-        int[] targetTime = times[targetFriend];
+        int n=times.length;
+        int targetArrivalTime=times[targetFriend][0];
+        int chairsFreeAt[]=new int[n];
+     
         Arrays.sort(times, (a, b) -> Integer.compare(a[0], b[0]));
 
-        int n = times.length;
-        int[] chairTime = new int[n];
 
         for (int[] time : times) {
-            for (int i = 0; i < n; i++) {
-                if (chairTime[i] <= time[0]) {
-                    chairTime[i] = time[1];
-                    if (Arrays.equals(time, targetTime)) return i;
+            int arrival=time[0];
+            int departure=time[1];
+            for(int i=0;i<n;i++){
+                if(chairsFreeAt[i] <= arrival){
+                    chairsFreeAt[i]=departure;
+
+                    if(arrival==targetArrivalTime){
+                        return i;
+                    }
                     break;
                 }
             }
         }
-        return 0;
+        return -1;
     }
 }
