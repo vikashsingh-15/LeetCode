@@ -1,7 +1,7 @@
 class Solution:
     def isCircularSentence(self, s: str) -> bool:
         arr=s.split();
-        if( arr[0][0]!=arr[-1][-1]):
+        if( arr[0][0]!=arr[len(arr) - 1][-1]):
             return False;
 
         for i in range(1,len(arr)):
