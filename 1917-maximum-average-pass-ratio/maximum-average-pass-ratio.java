@@ -37,39 +37,78 @@
 // return ans/n;
 // }}
 
+// ////way 2
+// class Solution {
+//     public double maxAverageRatio(int[][] arr, int ext) {
+//        int n = arr.length;
+//        PriorityQueue<double[]> pq = new PriorityQueue<>((a, b) ->Double.compare(b[0], a[0]));
+
+//         for (int i = 0; i < arr.length; i++) {
+//            int passes = arr[i][0], total = arr[i][1];
+//            double currentRatio = (double) passes / total;
+//            double gain = ((double) (passes + 1) / (total + 1)) - currentRatio;
+//             pq.offer(new double[]{gain, passes, total});
+//         }
+
+//         while (ext-- > 0) {
+//             System.out.println(ext);
+//             double top[]=pq.poll();
+//             int pass=(int) top[1];
+//             int total=(int) top[2];
+//             pass++;
+//             total++;
+
+//             double newGain=((double) (pass+1)/(total+1))-((double)pass/total);
+//             pq.offer(new double[]{newGain,pass,total});
+//         }
+
+
+//     double totalRatio = 0.0;
+//         while (!pq.isEmpty()) {
+//             double[] top = pq.poll();
+//             totalRatio += (double) top[1] / top[2];
+//         }
+
+//         return totalRatio / n;
+
+   
+// }
+// }
+
+//// way 3
+
+
 class Solution {
     public double maxAverageRatio(int[][] arr, int ext) {
-       int n = arr.length;
-       PriorityQueue<double[]> pq = new PriorityQueue<>((a, b) ->Double.compare(b[0], a[0]));
+         int n = arr.length;
+        PriorityQueue<double[]> pq = new PriorityQueue<>((a, b) -> Double.compare(b[0], a[0]));
+        double[] ans = new double[n];
 
-        for (int i = 0; i < arr.length; i++) {
-           int passes = arr[i][0], total = arr[i][1];
-           double currentRatio = (double) passes / total;
-           double gain = ((double) (passes + 1) / (total + 1)) - currentRatio;
-            pq.offer(new double[]{gain, passes, total});
+        for (int i = 0; i < n; i++) {
+            int passes = arr[i][0], total = arr[i][1];
+            double currentRatio = (double) passes / total;
+            double gain = ((double) (passes + 1) / (total + 1)) - currentRatio;
+            pq.offer(new double[]{gain, passes, total, i});
+            ans[i] = currentRatio;
         }
 
         while (ext-- > 0) {
-            double top[]=pq.poll();
-            int pass=(int) top[1];
-            int total=(int) top[2];
-            pass++;
+            double[] top = pq.poll();
+            int passes = (int) top[1];
+            int total = (int) top[2];
+            int index = (int) top[3];
+            passes++;
             total++;
-
-            double newGain=((double) (pass+1)/(total+1))-((double)pass/total);
-            pq.offer(new double[]{newGain,pass,total});
+            double newGain = ((double) (passes + 1) / (total + 1)) - ((double) passes / total);
+            pq.offer(new double[]{newGain, passes, total, index});
+            ans[index] = (double) passes / total;
         }
 
-
-    double totalRatio = 0.0;
-        while (!pq.isEmpty()) {
-            double[] top = pq.poll();
-            totalRatio += (double) top[1] / top[2];
+        double totalRatio = 0.0;
+        for (int i = 0; i < n; i++) {
+            totalRatio += ans[i];
         }
 
         return totalRatio / n;
-
-   
+    }
 }
-}
-
