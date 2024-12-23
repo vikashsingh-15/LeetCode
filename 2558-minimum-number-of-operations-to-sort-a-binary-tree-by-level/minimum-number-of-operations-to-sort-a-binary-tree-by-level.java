@@ -1,18 +1,4 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- * int val;
- * TreeNode left;
- * TreeNode right;
- * TreeNode() {}
- * TreeNode(int val) { this.val = val; }
- * TreeNode(int val, TreeNode left, TreeNode right) {
- * this.val = val;
- * this.left = left;
- * this.right = right;
- * }
- * }
- */
+
 //// This is wrong thought and process
 // class Solution {
 // public int minimumOperations(TreeNode root) {
@@ -81,6 +67,7 @@ class Solution {
                 int curPos = pos.get(target[i]);
                 pos.put(arr[i], curPos);
                 arr[curPos] = arr[i];
+                arr[i]=target[i];
             }
         }
         return swap;
