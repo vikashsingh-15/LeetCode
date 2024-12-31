@@ -1,73 +1,77 @@
+//wrong approach fails a lot
+// class Solution {
+//     public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
+//         Map<Integer, Integer> map = new HashMap<>();
+//         int[] dp = new int[n];
+//         dp[n - 1] = 0; 
+//         for (int i = n - 2; i >= 0; i--) {
+//             dp[i] = 1 + dp[i + 1];
+//         }
+
+//         int[] result = new int[queries.length];
+
+//         for (int q = 0; q < queries.length; q++) {
+//             int u = queries[q][0], v = queries[q][1];
+//             dp[u] = Math.min(dp[u], 1 + dp[v]); 
+
+            
+//             for (int i = u ; i >= 0; i--) {
+//                 dp[i] = Math.min(dp[i], 1 + dp[i + 1]);
+//                 if(map.containsKey(i)){
+//                     dp[i]=Math.min(dp[map.get(i)]+1,dp[i]);
+//                 }
+//             }
+
+//             result[q] = dp[0];
+//             if(map.containsKey(u)){
+//                 if(v>map.get(u)){
+//                     map.put(u,v);
+//                 }
+//             }else{
+//                 map.put(u,v);
+//             }  
+//         }
+//         return result;
+//     }
+// }
+
 class Solution {
+    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
+        // Map to store all paths for a given starting point
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int[] dp = new int[n];
+        
+        // Initialize dp array with the default distances
+        dp[n - 1] = 0; 
+        for (int i = n - 2; i >= 0; i--) {
+            dp[i] = 1 + dp[i + 1];
+        }
 
-    // Helper function to perform BFS and find the number of edges in the shortest path from node 0 to node n-1
-    private int bfs(int n, List<List<Integer>> adjList) {
-        boolean[] visited = new boolean[n];
-        Queue<Integer> nodeQueue = new LinkedList<>();
+        int[] result = new int[queries.length];
 
-        // Start BFS from node 0
-        nodeQueue.add(0);
-        visited[0] = true;
+        for (int q = 0; q < queries.length; q++) {
+            int u = queries[q][0], v = queries[q][1];
+            map.putIfAbsent(u, new ArrayList<>());
+            map.get(u).add(v);
 
-        // Track the number of nodes in the current layer and the next layer
-        int currentLayerNodeCount = 1;
-        int nextLayerNodeCount = 0;
-        // Initialize layers explored count
-        int layersExplored = 0;
+            // Update dp[u] with the shortest path using the new road
+            dp[u] = Math.min(dp[u], 1 + dp[v]); 
 
-        // Perform BFS until the queue is empty
-        while (!nodeQueue.isEmpty()) {
-            // Process nodes in the current layer
-            for (int i = 0; i < currentLayerNodeCount; i++) {
-                int currentNode = nodeQueue.poll();
+            // Recalculate dp from u to the start of the path (0)
+            for (int i = u; i >= 0; i--) {
+                dp[i] = Math.min(dp[i], 1 + dp[i + 1]);
 
-                // Check if we reached the destination node
-                if (currentNode == n - 1) {
-                    return layersExplored; // Return the number of edges in the shortest path
-                }
-
-                // Explore all adjacent nodes
-                for (int neighbor : adjList.get(currentNode)) {
-                    if (visited[neighbor]) continue;
-                    nodeQueue.add(neighbor); // Add neighbor to the queue for exploration
-                    nextLayerNodeCount++; // Increment the count of nodes in the next layer
-                    visited[neighbor] = true;
+                // Use all stored paths for the current node to update dp[i]
+                if (map.containsKey(i)) {
+                    for (int end : map.get(i)) {
+                        dp[i] = Math.min(dp[i], 1 + dp[end]);
+                    }
                 }
             }
-
-            // Move to the next layer
-            currentLayerNodeCount = nextLayerNodeCount;
-            nextLayerNodeCount = 0; // Reset next layer count
-            layersExplored++; // Increment the layer count after processing the current layer
+            result[q] = dp[0];
         }
 
-        return -1; // Algorithm will never reach this point
-    }
-
-    public int[] shortestDistanceAfterQueries(int n, int[][] queries) {
-        List<Integer> answer = new ArrayList<>();
-        List<List<Integer>> adjList = new ArrayList<>(n);
-
-        // Initialize the adjacency list for the graph
-        for (int i = 0; i < n; i++) {
-            adjList.add(new ArrayList<>());
-        }
-
-        // Initialize the graph with edges between consecutive nodes
-        for (int i = 0; i < n - 1; i++) {
-            adjList.get(i).add(i + 1);
-        }
-
-        // Process each query to add new roads
-        for (int[] road : queries) {
-            int u = road[0];
-            int v = road[1];
-            adjList.get(u).add(v); // Add road from u to v
-            // Perform BFS to find the shortest path after adding the new road
-            answer.add(bfs(n, adjList));
-        }
-
-        // Convert List<Integer> to int[]
-        return answer.stream().mapToInt(i -> i).toArray();
+        return result;
     }
 }
+
