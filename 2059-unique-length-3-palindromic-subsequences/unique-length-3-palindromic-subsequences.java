@@ -1,66 +1,61 @@
-//case 1-> TLE
+////TLE --> without memeo
 
 // class Solution {
-//     Set<String> set = new HashSet<>();
-
 //     public int countPalindromicSubsequence(String s) {
-//         int count = 0;
-//         int n = s.length();
-
-//         for (int i = 0; i < n - 2; i++) {
-//             for (int j = i + 1; j < n - 1; j++) {
-//                 for (int k = j + 1; k < n; k++) {
-//                     isPalindrome(s.charAt(i), s.charAt(j), s.charAt(k));
-//                 }
-//             }
-//         }
-
-//         return set.size();
+//         Set<String>list=new HashSet<String>();
+//         generateSubsequences(s, 0, "", list);
+//         return list.size();
 //     }
 
-//     private void isPalindrome(char a, char b, char c) {
-//         if (a == c) {
-//             set.add("" + a + b + c);
+//     public void generateSubsequences(String str, int index, String current, Set<String> list ){
+//         if(current.length()==3){
+//             if(current.charAt(0)==current.charAt(2)){
+//                 list.add(current);
+//                 return;
+//             }
 //         }
+//          if (index == str.length()) {
+//             return;
+//         }
+//         generateSubsequences(str,index+1,current+str.charAt(index),list);
+//          generateSubsequences(str, index + 1, current, list);
 //     }
 // }
 
-
-
-//case 2 TLE
+////way 2 --> memo is also TLE
 
 // class Solution {
-//     Set<String> set = new HashSet<>();
-
 //     public int countPalindromicSubsequence(String s) {
-//         List<String> subsequences = generateSubsequences(s);
-//         return set.size();
+//         Set<String> list = new HashSet<>();
+//         Map<String, Boolean> memo = new HashMap<>();
+//         generateSubsequences(s, 0, "", list, memo);
+//         return list.size();
 //     }
 
-//     public List<String> generateSubsequences(String s) {
-//         List<String> subsequences = new ArrayList<>();
-//         generateSubsequencesHelper(s, 0, new StringBuilder(), subsequences);
-//         return subsequences;
-//     }
-
-//     private void generateSubsequencesHelper(String s, int index, StringBuilder current, List<String> subsequences) {
+//     public void generateSubsequences(String str, int index, String current, Set<String> list,
+//             Map<String, Boolean> memo) {
 //         if (current.length() == 3) {
 //             if (current.charAt(0) == current.charAt(2)) {
-//                 set.add(current.toString());
+//                 list.add(current);
 //             }
 //             return;
 //         }
 
-//         for (int i = index; i < s.length(); i++) {
-//             current.append(s.charAt(i));
-//             generateSubsequencesHelper(s, i + 1, current, subsequences);
-//             current.deleteCharAt(current.length() - 1);
+//         if (index == str.length()) {
+//             return;
 //         }
+
+//         String key = index + "|" + current;
+//         if (memo.containsKey(key)) {
+//             return;
+//         }
+//         memo.put(key, true);
+
+//         generateSubsequences(str, index + 1, current + str.charAt(index), list, memo);
+//         generateSubsequences(str, index + 1, current, list, memo);
 //     }
 // }
 
-
-//code 3 TLE
 
 class Solution {
     public int countPalindromicSubsequence(String s) {
@@ -83,30 +78,3 @@ class Solution {
         return set.size();
     }
 }
-
-//code 4
-
-// class Solution {
-//     public int countPalindromicSubsequence(String s) {
-//         int result = 0;
-//         int n = s.length();
-
-//         for (char c = 'a'; c <= 'z'; c++) {
-//             int firstOccurrence = s.indexOf(c);
-//             int lastOccurrence = s.lastIndexOf(c);
-
-//             if (firstOccurrence != -1 && lastOccurrence != -1 && firstOccurrence < lastOccurrence) {
-//                 Set<Character> uniqueChars = new HashSet<>();
-//                 for (int i = firstOccurrence + 1; i < lastOccurrence; i++) {
-//                     uniqueChars.add(s.charAt(i));
-//                 }
-//                 result += uniqueChars.size();
-//             }
-//         }
-
-//         return result;
-//     }
-// }
-
-
-
