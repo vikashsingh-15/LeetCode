@@ -30,12 +30,12 @@ class Solution {
 
         for (int[] shift : shifts) {
             int start = shift[0], end = shift[1], direction = shift[2];
-            if (direction == 1) { // Backward shift
+            if (direction == 1) {
                 diffArr[start]++;
                 if (end + 1 < s.length()) {
                     diffArr[end + 1]--;
                 }
-            } else { // Forward shift
+            } else { 
                 diffArr[start]--;
                 if (end + 1 < s.length()) {
                     diffArr[end + 1]++;
