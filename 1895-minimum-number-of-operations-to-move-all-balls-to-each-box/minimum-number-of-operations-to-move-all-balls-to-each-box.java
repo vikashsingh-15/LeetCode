@@ -27,7 +27,7 @@ class Solution {
         int[] answer = new int[n];
         int count = 0;
         int operation=0;
-        for(int i=0;i<n;i++){
+        for(int i=0;i<n;i++){//left to right
             answer[i] += operation;
             count+=str.charAt(i)=='1'?1:0;
             operation+=count;
@@ -36,7 +36,7 @@ class Solution {
 
          count = 0;
          operation=0;
-        for(int i=n-1;i>=0;i--){
+        for(int i=n-1;i>=0;i--){//right to left
             answer[i] += operation;
             count+=str.charAt(i)=='1'?1:0;
             operation+=count;
