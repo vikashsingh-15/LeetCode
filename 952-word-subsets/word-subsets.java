@@ -16,7 +16,7 @@ class Solution {
         for (String word : words1) {
 
             int[] copy = Arrays.copyOf(freq, freq.length);
-            
+
            for (int i = 0; i < word.length(); i++) {
                 char ch = word.charAt(i);
                 if (copy[ch - 'a'] > 0) {
@@ -38,14 +38,5 @@ class Solution {
         }
         
         return result;
-    }
-
-
-     private int[] getCharFrequency(String word) {
-        int[] freq = new int[26];
-        for (char c : word.toCharArray()) {
-            freq[c - 'a']++;
-        }
-        return freq;
     }
 }
