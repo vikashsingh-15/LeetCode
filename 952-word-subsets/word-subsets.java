@@ -41,10 +41,6 @@
 //     }
 // }
 
-
-
-import java.util.*;
-
 class Solution {
     public List<String> wordSubsets(String[] words1, String[] words2) {
         int[] maxFreq = new int[26];
@@ -71,7 +67,7 @@ class Solution {
         
         return result;
     }
-    private int[] getCharFrequency(String word) {
+    private static int[] getCharFrequency(String word) {
         int[] freq = new int[26];
         for (char c : word.toCharArray()) {
             freq[c - 'a']++;
