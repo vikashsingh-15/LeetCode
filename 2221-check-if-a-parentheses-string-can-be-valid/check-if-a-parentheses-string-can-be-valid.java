@@ -32,6 +32,10 @@ class Solution {
             return false;
         }
 
+        if (!unlocked.empty() && unlocked.size()%2!=0) {
+            return false;
+        }
+
         return true;
 
     }
