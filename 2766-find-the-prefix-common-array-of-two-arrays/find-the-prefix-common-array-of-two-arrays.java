@@ -4,20 +4,21 @@ class Solution {
         int[] ans = new int[n];
         Set<Integer> elementsInA = new HashSet<Integer>();
         Set<Integer> elementsInB = new HashSet<Integer>();
+        int count=00;
 
-         for (int i = 0; i < n; ++i) {
-             elementsInA.add(A[i]);
+        for(int i=0;i<A.length;i++){
+            elementsInA.add(A[i]);
             elementsInB.add(B[i]);
-            int common = 0;
-
-            for(int x : elementsInA){
+             count=0;
+            for(int x:elementsInA){
                 if(elementsInB.contains(x)){
-                    common++;
+                    count++;
                 }
-            }
 
-            ans[i]=common;
-         }
+            }
+            ans[i]=count;
+        }
         return ans;
+
     }
 }
