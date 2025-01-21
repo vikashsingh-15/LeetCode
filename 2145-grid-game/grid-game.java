@@ -1,23 +1,26 @@
 class Solution {
-
     public long gridGame(int[][] grid) {
-        // Calculate the sum of all the elements for the first row
-        long firstRowSum = 0;
-        for (int num : grid[0]) {
-            firstRowSum += num;
+        
+        int n = grid[0].length;
+
+       
+        long ans = Long.MAX_VALUE;
+        long sumRow0 = 0;  
+        long sumRow1 = 0;  
+
+       
+        for (int i = 0; i < n; ++i) {
+            sumRow0 += grid[0][i];
         }
-        long secondRowSum = 0;
-        long minimumSum = Long.MAX_VALUE;
-        for (int turnIndex = 0; turnIndex < grid[0].length; ++turnIndex) {
-            firstRowSum -= grid[0][turnIndex];
-            // Find the minimum maximum value out of firstRowSum and
-            // secondRowSum.
-            minimumSum = Math.min(
-                minimumSum,
-                Math.max(firstRowSum, secondRowSum)
-            );
-            secondRowSum += grid[1][turnIndex];
+
+
+        for (int i = 0; i < n; ++i) {
+          
+            sumRow0 -= grid[0][i];
+            ans = Math.min(ans, Math.max(sumRow0, sumRow1));
+            sumRow1 += grid[1][i];
         }
-        return minimumSum;
+
+        return ans;
     }
 }
