@@ -1,83 +1,46 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
-class Solution {
-
+//BFS from 0
+public class Solution {
     public int[][] updateMatrix(int[][] mat) {
         int m = mat.length;
         int n = mat[0].length;
-        int[][] result = new int[m][n];
-
+        int[][] distances = new int[m][n];
         Queue<int[]> queue = new LinkedList<>();
-
-        // Initialize result matrix with -1 and enqueue cells with value 1
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                if (mat[i][j] == 1) {
-                    result[i][j] = -1;
-                } else {
-                    queue.offer(new int[]{i, j});
+        
+        // Initialize the distances matrix and enqueue all 0s
+       for(int i=0;i<mat.length;i++){
+            for(int j=0;j<mat[0].length;j++){
+                if(mat[i][j]==0){
+                    distances[i][j]=0;
+                    queue.add(new  int[]{i,j});
+                }else{
+                    distances[i][j]=-1;
                 }
             }
-        }
-
-        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-
-        // Perform BFS traversal
+       }
+        
+        // Directions for moving up, down, left, right
+        int[][] directions = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        
+        // Perform BFS
         while (!queue.isEmpty()) {
-            int[] cell = queue.poll();
-            int row = cell[0];
-            int col = cell[1];
+          int[] cell = queue.poll();
+            int x = cell[0], y = cell[1];
 
-            for (int[] direction : directions) {
-                int newRow = row + direction[0];
-                int newCol = col + direction[1];
+            for(int i=0;i<directions.length;i++){
+                int nx = x + directions[i][0];
+                int ny = y + directions[i][1];
 
-                if (newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && result[newRow][newCol] == -1) {
-                    result[newRow][newCol] = result[row][col] + 1;
-                    queue.offer(new int[]{newRow, newCol});
+                if(nx >= 0 && nx < m && ny >= 0 && ny < n && distances[nx][ny]==-1){
+                    distances[nx][ny]=distances[x][y] + 1;
+                    queue.add(new int[]{nx, ny});
                 }
             }
         }
-
-        return result;
+ 
+        return distances;
     }
 }
 
-//way 2 ->TLE by DFS
 
-// class Solution {
-//     public int[][] updateMatrix(int[][] mat) {
-//         int m = mat.length;
-//         int n = mat[0].length;
-//         int[][] result = new int[m][n];
-//         // Initialize result matrix with -1 and enqueue cells with value 1
-//         for (int i = 0; i < m; i++) {
-//             for (int j = 0; j < n; j++) {
-//                 if (mat[i][j] >0) {
-//                     result[i][j]=dfs(mat,i,j,new boolean[m][n]);
-//                 }
-//             }
-//         }
-//         return result;
-//     }
 
-//     public int dfs(int[][] mat, int x, int y,boolean[][] visited){
-//         if(x<0 ||y<0||x>=mat.length||y>=mat[0].length||visited[x][y]){
-//             return 10000000;
-//         }
-//         if(mat[x][y]==0){
-//             return 0;
-//         } 
-//         visited[x][y]=true;
-//         int val=1+Math.min(
-//             Math.min(dfs(mat,x+1,y,visited),dfs(mat,x-1,y,visited)),
-//             Math.min(dfs(mat,x,y+1,visited),dfs(mat,x,y-1,visited))
-        
-//         );
-//         visited[x][y]=false;
-//         return val;
-        
-//     }
-// }
-
+// BFS from 1 
