@@ -99,8 +99,8 @@ class Solution {
          for (int row = 0; row < n; row++) {
             for (int col = 0; col < m; col++) {
                 if (grid[row][col] > 0 ) {
-                   grid[row][col]=dfs(grid, row, col,visited);
-                   maxFishCount=Math.max(maxFishCount,grid[row][col]);
+                   int x=dfs(grid, row, col,visited);
+                   maxFishCount=Math.max(maxFishCount,x);
                 }
             }
         }
