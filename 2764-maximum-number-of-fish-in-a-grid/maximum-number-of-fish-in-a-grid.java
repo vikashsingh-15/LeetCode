@@ -9,7 +9,7 @@ class Solution {
 
          for (int row = 0; row < n; row++) {
             for (int col = 0; col < m; col++) {
-                if (grid[row][col] > 0 && !visited[row][col]) {
+                if (grid[row][col] > 0 ) {
                     maxFishCount = Math.max(
                         maxFishCount,
                         dfs(grid, row, col,visited)
