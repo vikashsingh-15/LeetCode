@@ -1,36 +1,33 @@
 class Solution {
-
     public int[] queryResults(int limit, int[][] queries) {
+        Map<Integer, Integer> ballColors = new HashMap<>();
+        Map<Integer, Integer> colorCount = new HashMap<>();
         int n = queries.length;
         int[] result = new int[n];
-        Map<Integer, Integer> colorMap = new HashMap<>();
-        Map<Integer, Integer> ballMap = new HashMap<>();
+        int distinctCount = 0;
 
-        // Iterate through queries
         for (int i = 0; i < n; i++) {
-            // Extract ball label and color from query
             int ball = queries[i][0];
             int color = queries[i][1];
 
-            // Check if ball is already colored
-            if (ballMap.containsKey(ball)) {
-                // Decrement count of the previous color on the ball
-                int prevColor = ballMap.get(ball);
-                colorMap.put(prevColor, colorMap.get(prevColor) - 1);
-
-                // If there are no balls with previous color left, remove color from color map
-                if (colorMap.get(prevColor) == 0) {
-                    colorMap.remove(prevColor);
+            if (ballColors.containsKey(ball)) {
+                int oldColor = ballColors.get(ball);
+                colorCount.put(oldColor, colorCount.get(oldColor) - 1);
+                if (colorCount.get(oldColor) == 0) {
+                    colorCount.remove(oldColor);
+                    distinctCount--;
                 }
             }
-            // Set color of ball to the new color
-            ballMap.put(ball, color);
 
-            // Increment the count of the new color
-            colorMap.put(color, colorMap.getOrDefault(color, 0) + 1);
+            ballColors.put(ball, color);
+            colorCount.put(color, colorCount.getOrDefault(color, 0) + 1);
+            if (colorCount.get(color) == 1) {
+                distinctCount++;
+            }
 
-            result[i] = colorMap.size();
+            result[i] = distinctCount;
         }
+
         return result;
     }
 }
