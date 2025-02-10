@@ -8,11 +8,12 @@ class Solution {
             sb.deleteCharAt(charIndex);
             if(charIndex>0){
                 sb.deleteCharAt(charIndex-1);
-                charIndex--;
+                charIndex-=2;
             }
-        }else{
-            charIndex++;
         }
+     
+            charIndex++;
+    
        }
 
         return sb.toString();
