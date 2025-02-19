@@ -44,16 +44,19 @@ import java.util.ArrayList;
 class Solution {
     public String getHappyString(int n, int k) {
         ArrayList<String> list = new ArrayList<>();
-        helper(0, n, new StringBuilder(), list);
+        helper(0, n, new StringBuilder(), list,k);
         if (k > list.size()) {
             return "";
         }
         return list.get(k - 1);
     }
 
-    public void helper(int index, int n, StringBuilder current, ArrayList<String> list) {
+    public void helper(int index, int n, StringBuilder current, ArrayList<String> list,int k) {
         if (current.length() == n) {
             list.add(current.toString());
+            return;
+        }
+        if(list.size()>k){
             return;
         }
 
@@ -62,7 +65,7 @@ class Solution {
             char c = chars.charAt(i);
             if (current.length() == 0 || current.charAt(current.length() - 1) != c) {
                 current.append(c);
-                helper(index + 1, n, current, list);
+                helper(index + 1, n, current, list,k);
                 current.deleteCharAt(current.length() - 1);
             }
         }
