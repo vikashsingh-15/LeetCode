@@ -1,32 +1,40 @@
 class Solution {
+    int dp[][];
+    int m,n;
     public int maxMoves(int[][] grid) {
-          int m = grid.length, n = grid[0].length;
+         m = grid.length;
+         n = grid[0].length;
+        dp = new int[m][n];
+        int maxMoves = 0;
 
-        int[][] dp = new int[m][n];
-
-        int max=-1;
-        for(int j=n-2;j>=0;j--){
-            for(int i=0;i<m;i++){
-                int diagUp=-1;
-                int diagDown=-1;
-                int side=-1;
-                if(j+1<n && grid[i][j + 1] > grid[i][j]){
-                    side=dp[i][j+1];
-                }
-                if(i-1>=0 && j+1<n && grid[i - 1][j + 1] > grid[i][j]){
-                    diagUp=dp[i-1][j+1];
-                }
-                if(i+1<m && j+1<n && grid[i + 1][j + 1] > grid[i][j]){
-                    diagDown=dp[i+1][j+1];
-                }
-
-                dp[i][j]=Math.max(side,Math.max(diagUp,diagDown))+1;
-                if(j==0){
-                    max=Math.max(max,dp[i][j]);
-                }
-
-            }
+        for(int i=0;i<m;i++){
+             maxMoves = Math.max(maxMoves, dfs(grid, i, 0));
         }
-        return max;
+        return maxMoves;
     }
+
+     private int dfs(int[][] grid, int row, int col) {
+
+        if(col==n-1)return 0;
+
+        if(dp[row][col]!=0){
+            return dp[row][col];
+        }
+
+        int maxSteps=0;
+
+        if (col + 1 < n && grid[row][col + 1] > grid[row][col]) {
+            maxSteps = Math.max(maxSteps, 1 + dfs(grid, row, col + 1));
+        }
+        if (row - 1 >= 0 && col + 1 < n && grid[row - 1][col + 1] > grid[row][col]) {
+            maxSteps = Math.max(maxSteps, 1 + dfs(grid, row - 1, col + 1));
+        }
+        if (row + 1 < m && col + 1 < n && grid[row + 1][col + 1] > grid[row][col]) {
+            maxSteps = Math.max(maxSteps, 1 + dfs(grid, row + 1, col + 1));
+        }
+
+        dp[row][col] = maxSteps;
+        return maxSteps;
+
+     }
 }
