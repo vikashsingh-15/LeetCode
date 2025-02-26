@@ -16,28 +16,57 @@
 //     }
 // }
 
-////way 2
+////way 2 --> using Kadens
+
+// class Solution {
+//     public int maxAbsoluteSum(int[] nums) {
+//         int maxSum = nums[0], currentMax = 0;
+//         int minSum = nums[0], currentMin = 0;
+
+//         // Finding max subarray sum
+//         for (int num : nums) {
+//             if (currentMax < 0) currentMax = 0;
+//             currentMax += num;
+//             maxSum = Math.max(maxSum, currentMax);
+//         }
+
+//         // Finding min subarray sum
+//         for (int num : nums) {
+//             if (currentMin > 0) currentMin = 0;
+//             currentMin += num;
+//             minSum = Math.min(minSum, currentMin);
+//         }
+
+//         // Return the max absolute value
+//         return Math.max(Math.abs(maxSum), Math.abs(minSum));
+//     }
+// }
+
+
+////way 3
 
 class Solution {
     public int maxAbsoluteSum(int[] nums) {
         int maxSum = nums[0], currentMax = 0;
         int minSum = nums[0], currentMin = 0;
 
-        // Finding max subarray sum
-        for (int num : nums) {
-            if (currentMax < 0) currentMax = 0;
-            currentMax += num;
-            maxSum = Math.max(maxSum, currentMax);
+        for(int num:nums){
+            if(currentMax<0){
+                currentMax=0;
+            }
+            currentMax+=num;
+            maxSum=Math.max(currentMax,maxSum);
+
+
+
+             if(currentMin>0){
+                currentMin=0;
+            }
+
+            currentMin+=num;
+            minSum=Math.min(currentMin,minSum);
         }
 
-        // Finding min subarray sum
-        for (int num : nums) {
-            if (currentMin > 0) currentMin = 0;
-            currentMin += num;
-            minSum = Math.min(minSum, currentMin);
-        }
-
-        // Return the max absolute value
-        return Math.max(Math.abs(maxSum), Math.abs(minSum));
+      return Math.max(Math.abs(maxSum), Math.abs(minSum));
     }
 }
