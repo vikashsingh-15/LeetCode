@@ -45,28 +45,50 @@
 
 ////way 3
 
+// class Solution {
+//     public int maxAbsoluteSum(int[] nums) {
+//         int maxSum = nums[0], currentMax = 0;
+//         int minSum = nums[0], currentMin = 0;
+
+//         for(int num:nums){
+//             if(currentMax<0){
+//                 currentMax=0;
+//             }
+//             currentMax+=num;
+//             maxSum=Math.max(currentMax,maxSum);
+
+
+
+//              if(currentMin>0){
+//                 currentMin=0;
+//             }
+
+//             currentMin+=num;
+//             minSum=Math.min(currentMin,minSum);
+//         }
+
+//       return Math.max(Math.abs(maxSum), Math.abs(minSum));
+//     }
+// }
+
+
+
+////way 4
+
 class Solution {
     public int maxAbsoluteSum(int[] nums) {
-        int maxSum = nums[0], currentMax = 0;
-        int minSum = nums[0], currentMin = 0;
+      
+      int prefixSum=0;
+      int minSum=0;
+      int maxSum=0;
 
-        for(int num:nums){
-            if(currentMax<0){
-                currentMax=0;
-            }
-            currentMax+=num;
-            maxSum=Math.max(currentMax,maxSum);
+      for(int num:nums){
+        prefixSum+=num;
 
+        minSum=Math.min(prefixSum,minSum);
+        maxSum=Math.max(prefixSum,maxSum);
+      }
 
-
-             if(currentMin>0){
-                currentMin=0;
-            }
-
-            currentMin+=num;
-            minSum=Math.min(currentMin,minSum);
-        }
-
-      return Math.max(Math.abs(maxSum), Math.abs(minSum));
+      return maxSum-minSum;
     }
 }
