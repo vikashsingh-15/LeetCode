@@ -1,22 +1,17 @@
+import java.util.Arrays;
+
 class Solution {
-    public int findLongestChain(int[][] pairs) {
-        if (pairs.length <= 1) {
-            return 1;
-        }
-        Arrays.sort(pairs, Comparator.comparingInt((int[] row) -> row[1]));
+    public int findLongestChain(int[][] arr) {
+        Arrays.sort(arr, (a, b) -> Integer.compare(a[1], b[1]));
 
-        int nonOverlappingCount = 0;
-        int prevEnd = pairs[0][1];
-
-        for (int i = 1; i < pairs.length; i++) {
-            if (pairs[i][0] <= prevEnd) {
-                nonOverlappingCount++;
-                // prevEnd = intervals[i][1];
-            }else{
-                prevEnd=pairs[i][1];
+        int count = 1; 
+        int lastEnd = arr[0][1]; 
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i][0] > lastEnd) { 
+                count++;
+                lastEnd = arr[i][1]; 
             }
         }
-
-        return pairs.length - (nonOverlappingCount);
+        return count;
     }
 }
