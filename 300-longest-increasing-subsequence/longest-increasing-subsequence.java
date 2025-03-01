@@ -11,7 +11,9 @@ class Solution {
         for (int i = 1; i < n; i++) {
             for (int j = 0; j < i; j++) {
                 if (nums[j] < nums[i]) {
-                    dp[i] = Math.max(dp[i], dp[j] + 1); 
+                    int newLen=dp[j]+1;
+                    dp[i]=Math.max(dp[i],newLen);
+                    // dp[i] = Math.max(dp[i], dp[j] + 1); 
                 }
             }
             maxLIS = Math.max(maxLIS, dp[i]); 
