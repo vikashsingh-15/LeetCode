@@ -1,60 +1,33 @@
 class Solution {
-
     public int[] closestPrimes(int left, int right) {
-        // Step 1: Get all prime numbers up to 'right' using sieve
-        int[] sieveArray = sieve(right);
+        int prevPrime = -1, minDiff = Integer.MAX_VALUE;
+        int num1 = -1, num2 = -1;
 
-        List<Integer> primeNumbers = new ArrayList<>(); // Store all primes in the range [left, right]
-        for (int num = left; num <= right; num++) {
-            // If number is prime add to the primeNumbers list
-            if (sieveArray[num] == 1) {
-                primeNumbers.add(num);
-            }
-        }
-
-        // Step 2: Find the closest prime pair
-        if (primeNumbers.size() < 2) return new int[] { -1, -1 }; // Less than two primes available
-
-        int minDifference = Integer.MAX_VALUE;
-        int[] closestPair = new int[2];
-        // setting initial values
-        Arrays.fill(closestPair, -1);
-
-        for (int index = 1; index < primeNumbers.size(); index++) {
-            int difference =
-                primeNumbers.get(index) - primeNumbers.get(index - 1);
-            if (difference < minDifference) {
-                minDifference = difference;
-                closestPair[0] = primeNumbers.get(index - 1);
-                closestPair[1] = primeNumbers.get(index);
-            }
-        }
-
-        return closestPair;
-    }
-
-    private int[] sieve(int upperLimit) {
-        // Initiate an int array to mark prime numbers (1 = prime, else it's not)
-        int[] sieve = new int[upperLimit + 1];
-        // Assuming all numbers as prime initially
-        Arrays.fill(sieve, 1);
-
-        // 0 and 1 are not prime
-        sieve[0] = 0;
-        sieve[1] = 0;
-
-        for (int number = 2; number * number <= upperLimit; number++) {
-            if (sieve[number] == 1) {
-                // Mark all multiples of 'number' as non-prime
-                for (
-                    int multiple = number * number;
-                    multiple <= upperLimit;
-                    multiple += number
-                ) {
-                    sieve[multiple] = 0;
+        for (int i = left; i <= right; i++) {
+            if (isPrime(i)) {  
+                if (prevPrime != -1) { 
+                    int diff = i - prevPrime;
+                    if (diff < minDiff) { 
+                        minDiff = diff;
+                        num1 = prevPrime;
+                        num2 = i;
+                    }
                 }
+                prevPrime = i;
             }
         }
-        return sieve;
+
+        return (num1 == -1) ? new int[]{-1, -1} : new int[]{num1, num2}; 
+    }
+    public  boolean isPrime(int n) {
+        if (n <= 1) return false;
+        if (n == 2 || n == 3) return true; 
+        if (n % 2 == 0 || n % 3 == 0) return false; 
+        for (int i = 5; i * i <= n; i += 6) {
+            if (n % i == 0 || n % (i + 2) == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
