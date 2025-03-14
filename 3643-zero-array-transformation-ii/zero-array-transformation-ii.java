@@ -1,3 +1,4 @@
+
 ////TLE
 // class Solution {
 //     public int minZeroArray(int[] nums, int[][] queries) {
@@ -36,47 +37,114 @@
 //     }
 // }
 
-////way 2
+// ////way 2
+// class Solution {
+//     public int minZeroArray(int[] arr, int[][] queries) {
+//         int n = arr.length;
+//         int q = queries.length;
+
+//         if (checkZero(arr)) {
+//             return 0;
+//         }
+
+//         for (int i = 0; i < q; i++) {
+//             if (diffArrayZero(arr, queries, i + 1)) { 
+//                 return i + 1;
+//             }
+//         }
+
+//         return -1;
+//     }
+
+//     private boolean diffArrayZero(int arr[], int[][] queries, int k) {
+//         int[] diff = new int[arr.length + 1]; 
+
+//         for (int i = 0; i < k; i++) {
+//             int l = queries[i][0];
+//             int r = queries[i][1];
+//             int x = queries[i][2]; 
+
+//             diff[l] += x;
+//             if (r + 1 < arr.length) {
+//                 diff[r + 1] -= x;
+//             }
+//         }
+
+//         int cumSum = 0;
+//         for (int i = 0; i < arr.length; i++) {
+//             cumSum += diff[i];  
+//             if (arr[i] - cumSum > 0) { 
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
+//     private boolean checkZero(int arr[]) {
+//         for (int num : arr) {
+//             if (num != 0) {
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+// }
+
+
+////way 3
 class Solution {
+    public int minZeroArray(int[] arr, int[][] queries) {
+        int n = arr.length;
+        int q = queries.length;
 
-    public int minZeroArray(int[] nums, int[][] queries) {
-        int n = nums.length, left = 0, right = queries.length;
+        if (checkZero(arr)) {
+            return 0;
+        }
 
-        // Zero array isn't formed after all queries are processed
-        if (!currentIndexZero(nums, queries, right)) return -1;
-
-        // Binary Search
+        int left = 1, right = q, result = -1;
         while (left <= right) {
-            int middle = left + (right - left) / 2;
-            if (currentIndexZero(nums, queries, middle)) {
-                right = middle - 1;
+            int mid = left + (right - left) / 2;
+            
+            if (diffArrayZero(arr, queries, mid)) {
+                result = mid;
+                right = mid - 1;
             } else {
-                left = middle + 1;
+                left = mid + 1;
             }
         }
 
-        // Return earliest query that zero array can be formed
-        return left;
+        return result;
     }
 
-    private boolean currentIndexZero(int[] nums, int[][] queries, int k) {
-        int n = nums.length, sum = 0;
-        int[] differenceArray = new int[n + 1];
+    private boolean diffArrayZero(int arr[], int[][] queries, int k) {
+        int[] diff = new int[arr.length + 1]; 
 
-        // Process query
-        for (int queryIndex = 0; queryIndex < k; queryIndex++) {
-            int left = queries[queryIndex][0], right =
-                queries[queryIndex][1], val = queries[queryIndex][2];
+        for (int i = 0; i < k; i++) {
+            int l = queries[i][0];
+            int r = queries[i][1];
+            int x = queries[i][2]; 
 
-            // Process start and end of range
-            differenceArray[left] += val;
-            differenceArray[right + 1] -= val;
+            diff[l] += x;
+            if (r + 1 < arr.length) {
+                diff[r + 1] -= x;
+            }
         }
 
-        // Check if zero array can be formed
-        for (int numIndex = 0; numIndex < n; numIndex++) {
-            sum += differenceArray[numIndex];
-            if (sum < nums[numIndex]) return false;
+        int cumSum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            cumSum += diff[i];  
+            if (arr[i] - cumSum > 0) { 
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkZero(int arr[]) {
+        for (int num : arr) {
+            if (num != 0) {
+                return false;
+            }
         }
         return true;
     }
