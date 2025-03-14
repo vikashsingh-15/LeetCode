@@ -79,3 +79,14 @@ class Solution {
         return maxNumOfChildren >= k;
     }
 }
+
+
+/**
+Comparison with the Traditional Approach
+Feature	Your Code (left = middle)	Traditional Approach (left = mid + 1)
+Mid Calculation	(left + right + 1) / 2 (biased upwards)	left + (right - left) / 2 (neutral)
+Left Update	left = middle (aggressive move right)	left = mid + 1 (safe move right)
+Right Update	right = middle - 1	right = mid - 1
+Final Return	left	right
+Both approaches work correctly, but your method ensures left is always valid and prevents infinite loops in edge cases.
+ */
