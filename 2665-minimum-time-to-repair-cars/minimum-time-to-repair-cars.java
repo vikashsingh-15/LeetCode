@@ -1,6 +1,6 @@
 class Solution {
     public long repairCars(int[] ranks, int cars) {
-       long low=0;
+       long low=1;
        long high=1L*ranks[0]*cars*cars;
 
        while(low<high){
