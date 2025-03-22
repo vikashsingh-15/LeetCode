@@ -60,7 +60,7 @@ class Solution {
 
 
             maxCount = Math.max(maxCount, map.get(normal));
-            maxCount = Math.max(maxCount, map.get(inverted));
+            // maxCount = Math.max(maxCount, map.get(inverted));
         }
 
         return maxCount;
