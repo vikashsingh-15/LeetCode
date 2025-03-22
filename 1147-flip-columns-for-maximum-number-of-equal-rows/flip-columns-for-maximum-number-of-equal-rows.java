@@ -58,9 +58,24 @@ class Solution {
             map.put(normal, map.getOrDefault(normal, 0) + 1);
             map.put(inverted, map.getOrDefault(inverted, 0) + 1);
 
-
             maxCount = Math.max(maxCount, map.get(normal));
-            // maxCount = Math.max(maxCount, map.get(inverted));
+            maxCount = Math.max(maxCount, map.get(inverted));
+            /**
+             * agar koi string pattern ka inverted hai to wo ultimately aage chalke later in
+             * loop noraml banke aayegha aur uska inverted dono me add hogga.
+             * 
+             * 1101100
+             * 0010011
+             * 1101100
+             * 1110111
+             * 0010011
+             * 
+             * eg -> 0010011 to iska inverted 1101100 pahele update ho chula hoga.
+             * thus sum ka jarurat nahi max se kaam ho gheyha.ultimately toward the end
+             * 
+             * 
+             * 
+             */
         }
 
         return maxCount;
