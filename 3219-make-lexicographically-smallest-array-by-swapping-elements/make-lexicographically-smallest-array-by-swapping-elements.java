@@ -1,43 +1,65 @@
+// ////TLE
+// class Solution {
+//     public int[] lexicographicallySmallestArray(int[] nums, int limit) {
+//          int n = nums.length;
+//         boolean swapped; 
+
+//         do {
+//             swapped = false; 
+//             for (int i = 0; i < n; i++) { 
+//                 for (int j = i + 1; j < n; j++) { 
+//                     if (nums[j] < nums[i] && Math.abs(nums[j] - nums[i]) <= limit) {
+//                         int temp = nums[i];
+//                         nums[i] = nums[j];
+//                         nums[j] = temp;
+//                         swapped = true; // Mark that a swap occurred
+//                     }
+//                 }
+//             }
+//         } while (swapped); 
+
+//         return nums;
+//     }
+// }
+
+//// way 2
+
 class Solution {
-
     public int[] lexicographicallySmallestArray(int[] nums, int limit) {
-        int[] numsSorted = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) numsSorted[i] = nums[i];
-        Arrays.sort(numsSorted);
+         int n = nums.length;
+        int[] sortArr = Arrays.copyOf(nums, n);
+        Arrays.sort(sortArr);
 
-        int currGroup = 0;
-        HashMap<Integer, Integer> numToGroup = new HashMap<>();
-        numToGroup.put(numsSorted[0], currGroup);
+        Map<Integer, Integer> map = new HashMap<>();
+        List<Deque<Integer>> groups = new ArrayList<>();
+        
+        int group = 0;
+        Deque<Integer> temp = new LinkedList<>();
+        temp.add(sortArr[0]);
+        map.put(sortArr[0], group);
 
-        HashMap<Integer, LinkedList<Integer>> groupToList = new HashMap<>();
-        groupToList.put(
-            currGroup,
-            new LinkedList<Integer>(Arrays.asList(numsSorted[0]))
-        );
-
-        for (int i = 1; i < nums.length; i++) {
-            if (Math.abs(numsSorted[i] - numsSorted[i - 1]) > limit) {
-                // new group
-                currGroup++;
+        for (int i = 1; i < n; i++) {
+            if (Math.abs(sortArr[i] - sortArr[i - 1]) <= limit) {
+                map.put(sortArr[i], group);
+                temp.add(sortArr[i]);
+            } else {
+                groups.add(new LinkedList<>(temp));
+                temp.clear();
+                group++;
+                temp.add(sortArr[i]);
+                map.put(sortArr[i], group);
             }
-
-            // assign current element to group
-            numToGroup.put(numsSorted[i], currGroup);
-
-            // add element to sorted group list
-            if (!groupToList.containsKey(currGroup)) {
-                groupToList.put(currGroup, new LinkedList<Integer>());
-            }
-            groupToList.get(currGroup).add(numsSorted[i]);
         }
+        groups.add(new LinkedList<>(temp));
 
-        // iterate through input and overwrite each element with the next element in its corresponding group
-        for (int i = 0; i < nums.length; i++) {
-            int num = nums[i];
-            int group = numToGroup.get(num);
-            nums[i] = groupToList.get(group).pop();
+        for (int i = 0; i < n; i++) {
+            int x = nums[i];
+            int g = map.get(x);
+            int y = groups.get(g).removeFirst();
+            nums[i] = y;
         }
 
         return nums;
+       
     }
 }
