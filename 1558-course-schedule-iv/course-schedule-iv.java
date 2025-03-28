@@ -1,52 +1,42 @@
 class Solution {
 
-    // Performs DFS and returns true if there's a path between src and target
-    // and false otherwise.
-    private boolean isPrerequisite(
-        Map<Integer, List<Integer>> adjList,
-        boolean[] visited,
-        int src,
-        int target
-    ) {
-        visited[src] = true;
+    public List<Boolean> checkIfPrerequisite(int numCourses, int[][] arr, int[][] queries) {
+        Map<Integer,List<Integer>>map=new HashMap<>();
 
-        if (src == target) {
-            return true;
-        }
-
-        boolean answer = false;
-        List<Integer> neighbors = adjList.getOrDefault(src, new ArrayList<>());
-        for (int adj : neighbors) {
-            if (!visited[adj]) {
-                answer =
-                    answer || isPrerequisite(adjList, visited, adj, target);
-            }
-        }
-        return answer;
-    }
-
-    public List<Boolean> checkIfPrerequisite(
-        int numCourses,
-        int[][] prerequisites,
-        int[][] queries
-    ) {
-        Map<Integer, List<Integer>> adjList = new HashMap<>();
-
-        for (int[] edge : prerequisites) {
-            adjList
-                .computeIfAbsent(edge[0], k -> new ArrayList<>())
-                .add(edge[1]);
+       for (int i = 0; i < arr.length; i++) {
+            map.computeIfAbsent(arr[i][0], k -> new ArrayList<>());
+            map.get(arr[i][0]).add(arr[i][1]);
         }
 
         List<Boolean> result = new ArrayList<>();
-        for (int i = 0; i < queries.length; i++) {
-            // Reset the visited array for each query
+
+        for(int i=0;i<queries.length;i++){
             boolean[] visited = new boolean[numCourses];
-            result.add(
-                isPrerequisite(adjList, visited, queries[i][0], queries[i][1])
-            );
+            result.add(dfs(map, visited, queries[i][0], queries[i][1]));
         }
 
         return result;
+    }
+
+    public boolean dfs( Map<Integer,List<Integer>>map,boolean visited[],int src, int target){
+        
+        if(src==target){
+            return true;
+        }
+
+        visited[src]=true;
+
+        boolean ans=false;
+
+        List<Integer>paths=map.getOrDefault(src,new ArrayList<>());
+
+        for(int path:paths){
+            if(!visited[path]){
+                ans=ans || dfs(map, visited, path, target);
+            }
+        }
+
+        return ans;
+
     }
 }
