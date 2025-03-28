@@ -1,59 +1,66 @@
+////way 1-> First move toward right and then transpose
+// class Solution {
+//     public char[][] rotateTheBox(char[][] boxGrid) {
+//         int m = boxGrid.length, n = boxGrid[0].length;
+//         char[][] rotatedBox = new char[n][m];
+
+//         for (int i = 0; i < m; i++) {
+//             int emptySpot = n - 1; 
+//             for (int j = n - 1; j >= 0; j--) {
+//                 if (boxGrid[i][j] == '#') {
+//                     boxGrid[i][j] = '.';
+//                     boxGrid[i][emptySpot] = '#';
+//                     emptySpot--;
+//                 } else if (boxGrid[i][j] == '*') {
+                   
+//                     emptySpot = j - 1;
+//                 }
+//             }
+//         }
+
+//         // Step 2: Rotate 90 degrees clockwise
+//         for (int i = 0; i < m; i++) {
+//             for (int j = 0; j < n; j++) {
+//                 rotatedBox[j][m - i - 1] = boxGrid[i][j];
+//             }
+//         }
+
+//         return rotatedBox;
+//     }
+// }
+
+//way 2 -> first transpose then move down
+
 class Solution {
-
-    public char[][] rotateTheBox(char[][] box) {
-        int m = box.length;
-        int n = box[0].length;
-        char[][] result = new char[n][m];
-
-        // Create the transpose of the input grid in `result`
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                result[i][j] = box[j][i];
+    public char[][] rotateTheBox(char[][] boxGrid) {
+        int m = boxGrid.length, n = boxGrid[0].length;
+        char[][] rotatedBox = new char[n][m];
+        // Step 1: Rotate 90 degrees clockwise
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                rotatedBox[j][m - i - 1] = boxGrid[i][j];
             }
         }
 
-        // Reverse each row in the transpose grid to complete the 90° rotation
-        for (int i = 0; i < n; i++) {
-            reverse(result[i]);
-        }
 
-        // Apply gravity to let stones fall to the lowest possible empty cell in each column
-        for (int j = 0; j < m; j++) {
-            // Process each cell in column `j` from bottom to top
-            for (int i = n - 1; i >= 0; i--) {
-                if (result[i][j] == '.') { // Found an empty cell; check if a stone can fall into it
-                    int nextRowWithStone = -1;
-
-                    // Look for a stone directly above the empty cell `result[i][j]`
-                    for (int k = i - 1; k >= 0; k--) {
-                        if (result[k][j] == '*') break; // Obstacle blocks any stones above
-                        if (result[k][j] == '#') { // Stone found with no obstacles in between
-                            nextRowWithStone = k;
-                            break;
-                        }
-                    }
-
-                    // If a stone was found above, let it fall into the empty cell `result[i][j]`
-                    if (nextRowWithStone != -1) {
-                        result[nextRowWithStone][j] = '.';
-                        result[i][j] = '#';
-                    }
+        for(int i=0;i<rotatedBox[0].length;i++){
+            int emptyBox=rotatedBox.length-1;
+            for(int j=rotatedBox.length-1;j>=0;j--){
+                if(rotatedBox[j][i]=='*'){
+                    emptyBox=j-1;
+                }
+                if(rotatedBox[j][i]=='.'){
+                    
+                }
+                else if(rotatedBox[j][i]=='#'){
+                    rotatedBox[j][i]='.';
+                    rotatedBox[emptyBox][i]='#';
+                    emptyBox--;
                 }
             }
-        }
-        return result;
-    }
 
-    // Helper function to reverse an array
-    private void reverse(char[] row) {
-        int left = 0;
-        int right = row.length - 1;
-        while (left < right) {
-            char temp = row[left];
-            row[left] = row[right];
-            row[right] = temp;
-            left++;
-            right--;
         }
+
+        return rotatedBox;
     }
 }
