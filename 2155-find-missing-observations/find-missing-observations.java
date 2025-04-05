@@ -1,20 +1,25 @@
 class Solution {
-    public int[] missingRolls(int[] rolls, int m, int n) {
-        int sumOfNum=(rolls.length+n)*m;
+    public int[] missingRolls(int[] rolls, int mean, int n) {
         int sum=0;
-        for(int i=0;i<rolls.length;i++){
-            sum+=rolls[i];
+        for(int num:rolls){
+            sum+=num;
         }
-        int missingNo=sumOfNum-sum;
-        if(missingNo>n*6 || missingNo<n){
-            return new int [] {};
+        int expectedTotal=mean*(n+rolls.length);
+        int needed=expectedTotal-sum;
+
+         if (needed < n || needed > n * 6) {
+            return new int[0]; 
         }
-        int ans[]=new int[n];
-        Arrays.fill(ans,missingNo/n);
-        missingNo %=n;
-        for(int i=0;i<missingNo;++i){
-            ++ans[i];
+
+        int base=needed/n;
+        int arr[]=new int[n];
+        Arrays.fill(arr, base);
+
+        int rem=needed%n;
+
+        for(int i=0;i<rem;i++){
+            arr[i]+=1;
         }
-        return ans;
+        return arr;
     }
 }
