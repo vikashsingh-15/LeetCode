@@ -1,47 +1,74 @@
+////TLE
+
+// class Solution {
+//     public int numberOfAlternatingGroups(int[] colors, int k) {
+//         int ans=0;
+
+//         for(int i=0;i<colors.length;i++){
+//             int prev=colors[i];
+//             int count=0;
+//             for(int j=i+1;j<i+k;j++){
+//                 int index=j%colors.length;
+
+//                 if(colors[index]!=prev){
+//                     count++;
+//                     prev=colors[index];
+//                 }
+
+//             }
+
+//             if(count==k-1){
+//                 ans++;
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
+////way 2
+
+// class Solution {
+//     public int numberOfAlternatingGroups(int[] colors, int k) {
+//          int n = colors.length;
+//         int ans = 0, alternatingCount = 1;
+//         for (int i = 1; i < n+k-1; i++) {
+//             if (colors[i % n] != colors[(i - 1+n) % n]) {
+//                 alternatingCount++;
+//             } else {
+//                 alternatingCount = 1;
+//             }
+            
+//             if (alternatingCount >= k) {
+//                 ans++;
+//             }
+//         }
+        
+//         return ans;
+//     }
+// }
+
+////way 3
+
 class Solution {
-
     public int numberOfAlternatingGroups(int[] colors, int k) {
-        int length = colors.length;
-        int result = 0;
-        // Tracks the length of the current alternating sequence
-        int alternatingElementsCount = 1;
-        int lastColor = colors[0];
+        int n = colors.length;
+        int count = 0;
+        int altLength = 1;
+        for(int i=1;i<n+k-1;i++){
+         int curr = colors[i % n];
+            int prev = colors[(i - 1) % n];
 
-        for (int index = 1; index < length; index++) {
-            // Check if the current color is the same as the last one
-            if (colors[index] == lastColor) {
-                // Pattern breaks, reset sequence length
-                alternatingElementsCount = 1;
-                lastColor = colors[index];
-                continue;
-            }
-            // Sequence can be extended
-            alternatingElementsCount++;
-
-            // Record a new alternating sequence
-            if (alternatingElementsCount >= k) {
-                result++;
+            if (curr != prev) {
+                altLength++;
+            } else {
+                altLength = 1;
             }
 
-            lastColor = colors[index];
+            if (altLength >= k) {
+                count++;
+            }
         }
 
-        // Wrap around to the first k - 1 elements
-        for (int index = 0; index < k - 1; index++) {
-            // Pattern breaks. Since there are less than k elements remaining,
-            // no more sequences can be formed
-            if (colors[index] == lastColor) break;
-
-            // Extend the pattern
-            alternatingElementsCount++;
-
-            // Record a new alternating sequence
-            if (alternatingElementsCount >= k) {
-                result++;
-            }
-
-            lastColor = colors[index];
-        }
-        return result;
+        return count;
     }
 }
