@@ -2,19 +2,19 @@ class Solution {
 
     public long countBadPairs(int[] nums) {
         long badPairs = 0;
-        Map<Integer, Integer> diffCount = new HashMap<>();
+        Map<Integer, Integer> map = new HashMap<>();
 
         for (int pos = 0; pos < nums.length; pos++) {
             int diff = pos - nums[pos];
 
             // Count of previous positions with same difference
-            int goodPairsCount = diffCount.getOrDefault(diff, 0);
+           int goodPair=map.getOrDefault(diff,0);
 
-            // Total possible pairs minus good pairs = bad pairs
-            badPairs += pos - goodPairsCount;
+           badPairs+=pos-goodPair;
 
-            // Update count of positions with this difference
-            diffCount.put(diff, goodPairsCount + 1);
+           map.put(diff,goodPair+1);
+
+
         }
 
         return badPairs;
