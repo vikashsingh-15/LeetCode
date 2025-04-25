@@ -107,52 +107,81 @@
 
 ////way 4
 
-class Solution {
+// class Solution {
 
+//     public long continuousSubarrays(int[] nums) {
+//         int right = 0, left = 0;
+//         int curMin, curMax;
+//         long windowLen = 0, total = 0;
+
+//         // Initialize window with first element
+//         curMin = curMax = nums[right];
+
+//         for (right = 0; right < nums.length; right++) {
+//             // Update min and max for current window
+//             curMin = Math.min(curMin, nums[right]);
+//             curMax = Math.max(curMax, nums[right]);
+
+//             // If window condition breaks (diff > 2)
+//             if (curMax - curMin > 2) {
+//                 // Add subarrays from previous valid window
+//                 windowLen = right - left;
+//                 total += ((windowLen * (windowLen + 1)) / 2);
+
+//                 // Start new window at current position
+//                 left = right;
+//                 curMin = curMax = nums[right];
+
+//                 // Expand left boundary while maintaining condition
+//                 while (
+//                     left > 0 && Math.abs(nums[right] - nums[left - 1]) <= 2
+//                 ) {
+//                     left--;
+//                     curMin = Math.min(curMin, nums[left]);
+//                     curMax = Math.max(curMax, nums[left]);
+//                 }
+
+//                 // Remove overcounted subarrays if left boundary expanded
+//                 if (left < right) {
+//                     windowLen = right - left;
+//                     total -= ((windowLen * (windowLen + 1)) / 2);
+//                 }
+//             }
+//         }
+
+//         // Add subarrays from final window
+//         windowLen = right - left;
+//         total += ((windowLen * (windowLen + 1)) / 2);
+
+//         return total;
+//     }
+// }
+
+////way 5
+
+import java.util.*;
+
+public class Solution {
     public long continuousSubarrays(int[] nums) {
-        int right = 0, left = 0;
-        int curMin, curMax;
-        long windowLen = 0, total = 0;
+        TreeMap<Integer, Integer> map = new TreeMap<>();
+        int left = 0;
+        long count = 0;
 
-        // Initialize window with first element
-        curMin = curMax = nums[right];
+        for (int right = 0; right < nums.length; right++) {
+            // Add current element to map
+            map.put(nums[right], map.getOrDefault(nums[right], 0) + 1);
 
-        for (right = 0; right < nums.length; right++) {
-            // Update min and max for current window
-            curMin = Math.min(curMin, nums[right]);
-            curMax = Math.max(curMax, nums[right]);
-
-            // If window condition breaks (diff > 2)
-            if (curMax - curMin > 2) {
-                // Add subarrays from previous valid window
-                windowLen = right - left;
-                total += ((windowLen * (windowLen + 1)) / 2);
-
-                // Start new window at current position
-                left = right;
-                curMin = curMax = nums[right];
-
-                // Expand left boundary while maintaining condition
-                while (
-                    left > 0 && Math.abs(nums[right] - nums[left - 1]) <= 2
-                ) {
-                    left--;
-                    curMin = Math.min(curMin, nums[left]);
-                    curMax = Math.max(curMax, nums[left]);
+            // Shrink window from left if max - min > 2
+            while (map.lastKey() - map.firstKey() > 2) {
+                map.put(nums[left], map.get(nums[left]) - 1);
+                if (map.get(nums[left]) == 0) {
+                    map.remove(nums[left]);
                 }
-
-                // Remove overcounted subarrays if left boundary expanded
-                if (left < right) {
-                    windowLen = right - left;
-                    total -= ((windowLen * (windowLen + 1)) / 2);
-                }
+                left++;
             }
+            count += right - left + 1;
         }
 
-        // Add subarrays from final window
-        windowLen = right - left;
-        total += ((windowLen * (windowLen + 1)) / 2);
-
-        return total;
+        return count;
     }
 }
