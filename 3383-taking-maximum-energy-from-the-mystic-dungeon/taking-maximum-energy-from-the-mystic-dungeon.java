@@ -1,13 +1,31 @@
+// class Solution {
+//     public int maximumEnergy(int[] energy, int k) {
+//          int n = energy.length;
+//         int ans = Integer.MIN_VALUE;
+//         for (int i = n - k; i < n; i++) {
+//             int sum = 0;
+//             for (int j = i; j >= 0; j -= k) {
+//                 sum += energy[j];
+//                 ans = Math.max(ans, sum);
+//             }
+//         }
+//         return ans;
+//     }
+// }
+
 class Solution {
     public int maximumEnergy(int[] energy, int k) {
-         int n = energy.length;
+        int n=energy.length;
+        int arr[]=new int[n];
         int ans = Integer.MIN_VALUE;
-        for (int i = n - k; i < n; i++) {
-            int sum = 0;
-            for (int j = i; j >= 0; j -= k) {
-                sum += energy[j];
-                ans = Math.max(ans, sum);
+        for(int i=n-1;i>=0;i--){
+            if(i+k>n-1){
+                arr[i]=energy[i];
+            }else{
+                arr[i]=energy[i]+arr[i+k];
             }
+
+            ans=Math.max(ans,arr[i]);
         }
         return ans;
     }
