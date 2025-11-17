@@ -31,53 +31,56 @@
 ////way2
 class Solution {
     public int numberOfSubstrings(String s) {
-
         int n = s.length();
-        int[] cumCountOne = new int[n];
+        int[] pre = new int[n + 1];
 
-        // Build prefix sum of ones
-        cumCountOne[0] = (s.charAt(0) == '1') ? 1 : 0;
-        for (int i = 1; i < n; i++) {
-            cumCountOne[i] = cumCountOne[i - 1] + (s.charAt(i) == '1' ? 1 : 0);
+        // Build prefix sum of 1's
+        for (int i = 0; i < n; i++) {
+            pre[i + 1] = pre[i] + (s.charAt(i) - '0');
         }
 
-        int result = 0;
+        int ans = 0;
 
         for (int i = 0; i < n; i++) {
 
-            for (int j = i; j < n; j++) {
+            for (int j = i; j < n;j++ ) {   // <-- for-loop with manual control
 
-                int oneCount = cumCountOne[j] - (i > 0 ? cumCountOne[i - 1] : 0);
-                int zeroCount = (j - i + 1) - oneCount;
+                int countOne = pre[j + 1] - pre[i];
+                int countZero = (j - i + 1) - countOne;
+                int sq = countZero * countZero;
 
-                int z2 = zeroCount * zeroCount;
+                // Case 1: zeros^2 > ones — skip ahead
+                if (sq > countOne) {
+                    int skip = sq - countOne;
+                    j += skip-1;
+                    if (j >= n) break;
+                }
 
-                if (z2 > oneCount) {
-                    // Skip several j's
-                    int waste = z2 - oneCount;
-                    j += waste - 1;
+                // Case 2: zeros^2 == ones — valid
+                else if (sq == countOne) {
+                    ans++;
+                   
+                }
 
-                } else if (z2 == oneCount) {
-                    result++;
+                // Case 3: zeros^2 < ones — valid + jump
+                else {
+                    ans++;
 
-                } else { // z2 < oneCount
-                    result++;
-
-                    int k = (int) Math.sqrt(oneCount) - zeroCount;
+                    int k = (int) Math.sqrt(countOne) - countZero;
                     int next = j + k;
 
                     if (next >= n) {
-                        result += (n - j - 1);
+                        ans += (n - j - 1);
                         break;
                     } else {
-                        result += k;
+                        ans += k;
                     }
 
-                    j = next;
+                    j = next;  
                 }
             }
         }
 
-        return result;
+        return ans;
     }
 }
