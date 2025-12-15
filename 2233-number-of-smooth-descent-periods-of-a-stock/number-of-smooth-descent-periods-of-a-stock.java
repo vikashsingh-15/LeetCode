@@ -1,20 +1,22 @@
-// class Solution {
-//     public long getDescentPeriods(int[] prices) {
-//         long result = 1;   
-//         long streak = 1;  
+class Solution {
+    public long getDescentPeriods(int[] prices) {
+        long streak=1;
+        long ans=1;
 
-//         for (int i = 1; i < prices.length; i++) {
-//             if (prices[i] == prices[i - 1] - 1) {
-//                 streak++;          
-//             } else {
-//                 streak = 1;        
-//             }
-//             result += streak;  
-//         }
+        for(int i=1;i<prices.length;i++){
+            if(prices[i]==prices[i-1]-1){
+                streak++;
+            }else{
+                streak=1;
+            }
 
-//         return result;
-//     }
-// }
+            ans+=streak;
+        }
+
+        return ans;
+    }
+}
+
 
 ////way 2-- TLE
 // class Solution {
@@ -37,36 +39,67 @@
 //     }
 // }
 
-class Solution {
-    public long getDescentPeriods(int[] prices) {
-        long[] memo = new long[prices.length];
-        long result = 0;
+////WAY 3 -- TLE
 
-        for (int i = 0; i < prices.length; i++) {
-            result += dfs(prices, i, memo);
-        }
+// class Solution {
+//     public long getDescentPeriods(int[] prices) {
+//         long total = 0;
 
-        return result;
-    }
+//         for (int i = 0; i < prices.length; i++) {
+//             total += countEndingAt(prices, i);
+//         }
 
-    private long dfs(int[] prices, int i, long[] memo) {
-        // Base case
-        if (i == 0) {
-            return memo[i] = 1;
-        }
+//         return total;
+//     }
 
-        // Already computed
-        if (memo[i] != 0) {
-            return memo[i];
-        }
+//     private long countEndingAt(int[] prices, int i) {
+//         // Base case
+//         if (i == 0) {
+//             return 1;
+//         }
 
-        // Recursive relation
-        if (prices[i] == prices[i - 1] - 1) {
-            memo[i] = dfs(prices, i - 1, memo) + 1;
-        } else {
-            memo[i] = 1;
-        }
+//         // If smooth descent continues
+//         if (prices[i] == prices[i - 1] - 1) {
+//             return countEndingAt(prices, i - 1) + 1;
+//         }
 
-        return memo[i];
-    }
-}
+//         // Descent breaks
+//         return 1;
+//     }
+// }
+
+//// way 4 --
+
+// class Solution {
+//     public long getDescentPeriods(int[] prices) {
+//         long[] memo = new long[prices.length];
+//         long result = 0;
+
+//         for (int i = 0; i < prices.length; i++) {
+//             result += dfs(prices, i, memo);
+//         }
+
+//         return result;
+//     }
+
+//     private long dfs(int[] prices, int i, long[] memo) {
+//         // Base case
+//         if (i == 0) {
+//             return memo[i] = 1;
+//         }
+
+//         // Already computed
+//         if (memo[i] != 0) {
+//             return memo[i];
+//         }
+
+//         // Recursive relation
+//         if (prices[i] == prices[i - 1] - 1) {
+//             memo[i] = dfs(prices, i - 1, memo) + 1;
+//         } else {
+//             memo[i] = 1;
+//         }
+
+//         return memo[i];
+//     }
+// }
