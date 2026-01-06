@@ -9,8 +9,9 @@ class Solution {
         while (!q.isEmpty()) {
             level++;
             int sumAtCurrentLevel = 0;
-            // Iterate over all the nodes in the current level.
-            for (int sz = q.size(); sz > 0; --sz) {
+            int size=q.size();
+           
+            for (int sz = 0; sz< size; sz++) {
                 TreeNode node = q.poll();
                 sumAtCurrentLevel += node.val;
 
