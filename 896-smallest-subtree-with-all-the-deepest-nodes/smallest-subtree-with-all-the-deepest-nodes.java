@@ -13,46 +13,80 @@
  *     }
  * }
  */
+// class Solution {
+//     public TreeNode subtreeWithAllDeepest(TreeNode root) {
+//         int maxDepth=findMaxDepth(root);
+//         return findsubtreeWithAllDeepest(root,0,maxDepth);
+        
+//     }
+
+//     public int findMaxDepth(TreeNode root){
+//         if(root==null){
+//             return 0;
+//         }
+
+//         int leftDepth=findMaxDepth(root.left);
+//         int rightDepth=findMaxDepth(root.right);
+//         return 1+Math.max(leftDepth,rightDepth);
+
+
+//         // return 1+Math.max(findMaxDepth(root.left),findMaxDepth(root.right));
+//     }
+
+//     public TreeNode findsubtreeWithAllDeepest(TreeNode node,int depth,int maxDepth){
+
+//         if(node==null){
+//             return null;
+//         }
+
+//          if(depth==maxDepth-1 && node.left==null && node.right==null){
+//             return node;
+//         }
+
+//         TreeNode left=findsubtreeWithAllDeepest(node.left,depth+1,maxDepth);
+//         TreeNode right=findsubtreeWithAllDeepest(node.right,depth+1,maxDepth);
+
+//         if (left != null && right != null) return node;
+
+//         if(left==null){
+//             return right;
+//         }
+//         return  left;
+
+//     }
+
+// }
+
+
 class Solution {
     public TreeNode subtreeWithAllDeepest(TreeNode root) {
-        int maxDepth=findMaxDepth(root);
-        return findsubtreeWithAllDeepest(root,0,maxDepth);
-        
+        return dfs(root).node;
     }
 
-    public int findMaxDepth(TreeNode root){
-        if(root==null){
-            return 0;
-        }
+    private Pair dfs(TreeNode root) {
+        if (root == null)
+            return new Pair(null, 0);
 
-        int leftDepth=findMaxDepth(root.left);
-        int rightDepth=findMaxDepth(root.right);
-        return 1+Math.max(leftDepth,rightDepth);
+        Pair left = dfs(root.left);
+        Pair right = dfs(root.right);
 
+        if (left.depth > right.depth)
+            return new Pair(left.node, left.depth + 1);
 
-        // return 1+Math.max(findMaxDepth(root.left),findMaxDepth(root.right));
+        if (right.depth > left.depth)
+            return new Pair(right.node, right.depth + 1);
+
+        // equal depth -> this node contains all deepest nodes
+        return new Pair(root, left.depth + 1);
     }
 
-    public TreeNode findsubtreeWithAllDeepest(TreeNode node,int depth,int maxDepth){
+    class Pair {
+        TreeNode node;
+        int depth;
 
-        if(node==null){
-            return null;
+        Pair(TreeNode n, int d) {
+            node = n;
+            depth = d;
         }
-
-         if(depth==maxDepth-1 && node.left==null && node.right==null){
-            return node;
-        }
-
-        TreeNode left=findsubtreeWithAllDeepest(node.left,depth+1,maxDepth);
-        TreeNode right=findsubtreeWithAllDeepest(node.right,depth+1,maxDepth);
-
-        if (left != null && right != null) return node;
-
-        if(left==null){
-            return right;
-        }
-        return  left;
-
     }
-
 }
