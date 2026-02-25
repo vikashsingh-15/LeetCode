@@ -1,23 +1,26 @@
+import java.util.*;
+
 class Solution {
     public int[] sortByBits(int[] arr) {
-        int n = arr.length;
-        int res[] = new int[n];
-        for (int i = 0; i < n; i++) {
-            res[i] = countBit(arr[i]) * 10001 + arr[i];
-        }
-        Arrays.sort(res);
-        for (int i = 0; i < n; i++) {
-            res[i] %= 10001;
-        }
-        return res;
-    }
 
-    private int countBit(int n) {
-        int res = 0;
-        while (n != 0) {
-            res += (n & 1);
-            n >>= 1;
+        Map<Integer, List<Integer>> map = new TreeMap<>();
+
+        for (int num : arr) {
+            int bits = Integer.bitCount(num);
+
+            map.putIfAbsent(bits, new ArrayList<>());
+            map.get(bits).add(num);
         }
-        return res;
+
+        int index = 0;
+
+        for (List<Integer> list : map.values()) {
+            Collections.sort(list); 
+            for (int num : list) {
+                arr[index++] = num;
+            }
+        }
+
+        return arr;
     }
 }
