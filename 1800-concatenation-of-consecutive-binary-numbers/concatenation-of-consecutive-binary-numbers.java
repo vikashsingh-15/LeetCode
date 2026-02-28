@@ -10,7 +10,7 @@ class Solution {
                 len++;
             }
 
-            ans=((ans<<len) + i)%mod;
+            ans=((ans<<len) | i)%mod;
         }
         return (int)ans;
     }
