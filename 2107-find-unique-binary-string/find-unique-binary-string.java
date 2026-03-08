@@ -1,30 +1,40 @@
+import java.util.*;
+
 class Solution {
-    int n;
-    Set<String> numsSet = new HashSet();
-    
-    private String generate(String curr) {
-        if (curr.length() == n) {
-            if (!numsSet.contains(curr)) {
-                return curr;
-            }
-            
-            return "";
+
+    Set<String> result = new HashSet<>();
+
+    public void generate(int n, String current) {
+        if (current.length() == n) {
+            result.add(current);
+            return;
         }
-        
-        String addZero = generate(curr + "0");
-        if (addZero.length() > 0) {
-            return addZero;
-        }
-        
-        return generate(curr + "1");
+
+        generate(n, current + "0");
+        generate(n, current + "1");
     }
-    
+
     public String findDifferentBinaryString(String[] nums) {
-        n = nums.length;
-        for (String s : nums) {
-            numsSet.add(s);
+
+        int n = nums.length;
+
+        generate(n, "");
+
+        for (String s : result) {
+            boolean found = false;
+
+            for (String num : nums) {
+                if (num.equals(s)) {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                return s;
+            }
         }
-        
-        return generate("");
+
+        return "";
     }
 }
