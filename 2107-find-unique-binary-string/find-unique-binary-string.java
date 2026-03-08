@@ -18,23 +18,15 @@ class Solution {
 
         int n = nums.length;
 
+        result.clear();
+
         generate(n, "");
 
-        for (String s : result) {
-            boolean found = false;
-
-            for (String num : nums) {
-                if (num.equals(s)) {
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                return s;
-            }
+        for (String s : nums) {
+            result.remove(s);   
         }
 
-        return "";
+        // return any remaining string
+        return result.iterator().next();
     }
 }
