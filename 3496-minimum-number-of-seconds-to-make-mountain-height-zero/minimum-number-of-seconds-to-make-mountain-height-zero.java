@@ -1,36 +1,52 @@
 class Solution {
-
-    private static final double EPS = 1e-7;
-
     public long minNumberOfSeconds(int mountainHeight, int[] workerTimes) {
-        int maxWorkerTimes = 0;
+
+        int timeMax = 0;
+
         for (int t : workerTimes) {
-            maxWorkerTimes = Math.max(maxWorkerTimes, t);
+            timeMax = Math.max(timeMax, t);
         }
 
-        long l = 1;
-        long r =
-            ((long) maxWorkerTimes * mountainHeight * (mountainHeight + 1)) / 2;
-        long ans = 0;
+        long left = 0;
+        long right = (long) timeMax * mountainHeight * (mountainHeight + 1) / 2;
 
-        while (l <= r) {
-            long mid = (l + r) / 2;
-            long cnt = 0;
-            for (int t : workerTimes) {
-                long work = mid / t;
-                // find the largest k such that 1+2+...+k <= work
-                long k = (long) ((-1.0 + Math.sqrt(1 + work * 8)) / 2 + EPS);
-                cnt += k;
-            }
+        while (left < right) {
+            long mid = left + (right - left) / 2;
 
-            if (cnt >= mountainHeight) {
-                ans = mid;
-                r = mid - 1;
+            if (canReduce(mid, mountainHeight, workerTimes)) {
+                right = mid;
             } else {
-                l = mid + 1;
+                left = mid + 1;
             }
         }
 
-        return ans;
+        return left;
+    }
+
+    private boolean canReduce(long midTime, int mountainHeight, int[] workerTimes) {
+        long total = 0;
+
+        for (int t : workerTimes) {
+            int h = calculateH(midTime, t);
+            total += h;
+
+            if (total >= mountainHeight) return true; // optimization
+        }
+
+        return false;
+    }
+
+    private int calculateH(long midTime, int t) {
+        int h = 0;
+
+        for (int i = 1; ; i++) {
+            long required = (long) t * i * (i + 1) / 2;
+
+            if (required > midTime) break;
+
+            h = i;
+        }
+
+        return h;
     }
 }
