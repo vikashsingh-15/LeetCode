@@ -12,13 +12,13 @@ class Solution {
         // first column
         for (int i = 1; i < m; i++) {
             max[i][0] = max[i-1][0] * grid[i][0];
-            min[i][0] = max[i][0];
+            min[i][0] = min[i-1][0] * grid[i][0];
         }
 
         // first row
         for (int j = 1; j < n; j++) {
             max[0][j] = max[0][j-1] * grid[0][j];
-            min[0][j] = max[0][j];
+            min[0][j] = min[0][j-1] * grid[0][j];
         }
 
         for (int i = 1; i < m; i++) {
