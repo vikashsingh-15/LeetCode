@@ -1,3 +1,38 @@
+// class Solution {
+//     private static final int MOD = 1000000007;
+
+//     public int xorAfterQueries(int[] nums, int[][] queries) {
+//         int n = nums.length;
+
+//         int[] temp = new int[n];
+//         Arrays.fill(temp, 1);
+
+//         for (int[] q : queries) {
+//             int l = q[0];
+//             int r = q[1];
+//             int k = q[2];
+//             int v = q[3]; 
+
+//             for (int i = l; i <= r; i += k) {
+//                 temp[i] = (int)((temp[i] * 1L * v) % MOD);
+//             }
+//         }
+
+//         int ans = 0;
+
+//         for (int i = 0; i < n; i++) {
+//             int val = (int)((nums[i] * 1L * temp[i]) % MOD);
+//             ans ^= val;
+//         }
+
+//         return ans;
+//     }
+// }
+
+
+///way 2
+
+
 class Solution {
 
     private static final int MOD = 1_000_000_007;
