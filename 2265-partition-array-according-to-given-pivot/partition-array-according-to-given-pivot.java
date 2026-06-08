@@ -1,71 +1,31 @@
-////way 1 
-
-// class Solution {
-//     public int[] pivotArray(int[] nums, int pivot) {
-//         int ans[]=new int[nums.length];
-//         ArrayList<Integer> list=new ArrayList();
-//         int same=0;
-//         int small=0;
-//         int large=0;
-
-//         for(int num:nums){
-//             list.add(num);
-//             if(num==pivot){
-//                 same++;
-//             }
-//             else if(num<pivot){
-//                 small++;
-//             }
-//             else{
-//                 large++;
-//             }
-//         }
-//         int constSmall=small;
-//         int constLarge=large;
-//         int constSame=same;
-
-//         for(int num:list){
-//             if(num<pivot){
-//                 ans[constSmall-(small--)]=num;
-//             }
-//             if(num==pivot){
-//                 ans[constSmall +  constSame-(same--)]=pivot;
-//             }
-
-//             if(num>pivot){
-//                 ans[constSmall+constSame+constLarge - (large--)]=num;
-//             }
-
-//         }
-//         return ans;
-//     }
-// }
-
-////way 2
-
 class Solution {
     public int[] pivotArray(int[] nums, int pivot) {
-        int ans[]=new int[nums.length];
-        int index=0;
-        for(int num:nums){
-           if(num<pivot){
-            ans[index++]=num;
-           }
+         int n = nums.length;
+        int[] result = new int[n];
+
+        int idx = 0;
+
+        // Elements less than pivot
+        for (int num : nums) {
+            if (num < pivot) {
+                result[idx++] = num;
+            }
         }
 
-        for(int num:nums){
-           if(num==pivot){
-            ans[index++]=num;
-           }
+        // Elements equal to pivot
+        for (int num : nums) {
+            if (num == pivot) {
+                result[idx++] = num;
+            }
         }
 
-         for(int num:nums){
-           if(num>pivot){
-            ans[index++]=num;
-           }
+        // Elements greater than pivot
+        for (int num : nums) {
+            if (num > pivot) {
+                result[idx++] = num;
+            }
         }
-        
-        return ans;
+
+        return result;
     }
 }
-
