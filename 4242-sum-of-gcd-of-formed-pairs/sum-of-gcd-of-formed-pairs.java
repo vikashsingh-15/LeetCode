@@ -1,41 +1,35 @@
-class Solution {
+import java.util.Arrays;
 
+class Solution {
     public long gcdSum(int[] nums) {
         int n = nums.length;
+        int[] arr = new int[n];
 
-        int[] mx = new int[n];
-        int prefixMax = Integer.MIN_VALUE;
+        int max = Integer.MIN_VALUE;
 
-        for (int i = 0; i < n; ++i) {
-            prefixMax = Math.max(prefixMax, nums[i]);
-            mx[i] = prefixMax;
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, nums[i]);
+            arr[i] = gcd(max, nums[i]);
         }
 
-        int[] prefixGcd = new int[n];
-        for (int i = 0; i < n; ++i) {
-            prefixGcd[i] = gcd(nums[i], mx[i]);
-        }
-
-        Arrays.sort(prefixGcd);
+        Arrays.sort(arr);
 
         long ans = 0;
-        int left = 0,
-            right = n - 1;
-        while (left < right) {
-            ans += gcd(prefixGcd[left], prefixGcd[right]);
-            ++left;
-            --right;
+        int l = 0, r = n - 1;
+
+        while (l < r) {
+            ans += gcd(arr[l], arr[r]);
+            l++;
+            r--;
         }
 
         return ans;
     }
 
-    public int gcd(int num1, int num2) {
-        while (num2 != 0) {
-            int temp = num1;
-            num1 = num2;
-            num2 = temp % num2;
+    public int gcd(int x, int y) {
+        if (y == 0) {
+            return x;
         }
-        return num1;
+        return gcd(y, x % y);
     }
 }
