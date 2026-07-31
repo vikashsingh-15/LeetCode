@@ -2,7 +2,7 @@ class Solution {
 
     public void dfs(int node, int[][] isConnected, boolean[] visit) {
         visit[node] = true;
-        for (int i = 0; i < isConnected.length; i++) {
+        for (int i = 0; i < isConnected[0].length; i++) {
             if (isConnected[node][i] == 1 && !visit[i]) {
                 dfs(i, isConnected, visit);
             }
