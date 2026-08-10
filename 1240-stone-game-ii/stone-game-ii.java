@@ -46,7 +46,7 @@ class Solution {
 
     public int stoneGameII(int[] piles) {
 
-        Map<Integer, Integer> memo = new HashMap<>();
+        Map<String, Integer> memo = new HashMap<>();
 
         int total = Arrays.stream(piles).sum();
 
@@ -59,13 +59,13 @@ class Solution {
             int[] piles,
             int i,
             int M,
-            Map<Integer, Integer> memo) {
+            Map<String, Integer> memo) {
 
         if (i >= piles.length) {
             return 0;
         }
 
-        int key = i * 101 + M;
+          String key = i+" " + M;
 
         if (memo.containsKey(key)) {
             return memo.get(key);
@@ -83,12 +83,7 @@ class Solution {
 
             int current =
                     stonesTaken
-                    - solve(
-                        piles,
-                        i + X,
-                        Math.max(M, X),
-                        memo
-                    );
+                    - solve(piles,i + X,Math.max(M, X),memo);
 
             maxDiff = Math.max(maxDiff, current);
         }
